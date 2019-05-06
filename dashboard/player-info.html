@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+	<script src="player-info.js"></script>
+	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/black-tie/jquery-ui.css"/>
+	<style>
+		.set-info{
+			display: inline-flex;
+			text-align: center;
+			width: 100%;
+			font-size: 48px;
+			overflow-wrap: break-word;
+		}
+		.player1-info{
+			float: left;
+			width: calc(100%/3);
+
+		}
+		.score{
+			display: inline-block;
+			width: calc(100%/3);
+			margin-top: 10%;
+			font-size: 72pt;
+		}
+		.player1-score{
+			display: inline-block;
+		}
+		.player2-score{
+			display: inline-block;
+		}
+		.player2-info{
+			width: calc(100%/3);
+			float: right;
+
+		}
+		.score-button{
+			font-size: 18pt;
+			width: 25%;
+			height: 75px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="set-info">
+		<div class="player1-info">
+			<div class="player1-tag">Player 1</div><br>
+			<div class="character player1-character"><img src="images/ssbult/Luigi.png" height="100" width="100"></div><br>
+			<div>
+				<button class="ui-button score-button">-1</button>
+				<button class="ui-button score-button">+1</button>
+			</div>
+		</div>
+		<div class="score">
+			<div class="player1-score">0</div>
+			-
+			<div class="player2-score">0</div>
+		</div>
+		<div class="player2-info">
+			<div class="player2-tag">Player 2</div><br>
+			<div class="character player2-character"><img src="images/ssbult/Link.png" height="100" width="100"></div><br>
+			<div>
+				<button class="ui-button score-button">-1</button>
+				<button class="ui-button score-button">+1</button>
+			</div>
+		</div>
+	</div>
+	<br><br><br>
+	<button class="ui-button editCurrentSet" style="display: block; margin: auto; font-size: 24px">Edit Current Set</button>
+</body>
+</html>

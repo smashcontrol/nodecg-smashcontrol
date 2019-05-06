@@ -1,0 +1,51 @@
+{
+  "name": "nodecg-smashcontrol",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "",
+  "author": {
+    "name": "swc19",
+    "email": "swc6992@rit.edu",
+    "url": ""
+  },
+  "files": [
+    "dashboard",
+    "extension.js",
+    "extension"
+  ],
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "dashboardPanels": [
+      {
+        "name": "player-info",
+        "title": "Current Set",
+        "width": 9,
+        "file": "player-info.html",
+        "workspace": "Player Info",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "upcoming-sets",
+        "title": "Upcoming Sets",
+        "width": 3,
+        "file": "upcoming-sets.html",
+        "workspace": "Player Info",
+        "headerColor": "#525F78"
+      },
+	    {
+        "name": "game-setup",
+        "title": "Game Selector",
+        "width": 3,
+        "file": "game-setup.html",
+        "workspace": "Game Setup",
+        "headerColor": "#525F78"
+      }
+    ]
+  },
+  "repository": "git://github.com/smashcontrol/nodecg-smashcontrol.git",
+  "license": "GPL-3.0"
+}
