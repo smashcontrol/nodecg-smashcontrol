@@ -24,8 +24,6 @@ $(function(){
 $(() => {
 	var player1tag = $('.player1-tag');
 	var player2tag = $('.player2-tag');
-	var player1character = $('.player1-character');
-	var player2character = $('.player2-character');
 	var bracketlocation = $('.bracket-location');
 	var setDataCurrent = nodecg.Replicant('playerDataArray');
 	setDataCurrent.on('change', (newVal, oldVal) => {

@@ -6,13 +6,14 @@ var playerDataArray,
 
 var playerDataInputs = [
 	{id: 'player1tag', placeholder: 'Player 1 Tag'},
-	{id: 'player1character', placeholder: 'Player 1 Character'},
+	//{id: 'player1character', placeholder: 'Player 1 Character'},
 	//{id: 'player1score', placeholder: 'Player 1 Score'},
 	{id: 'player2tag', placeholder: 'Player 2 Tag'},
 	//{id: 'player2score', placeholder: 'Player 2 Score'},
-	{id: 'player2character', placeholder: 'Player 2 Character'},
+	//{id: 'player2character', placeholder: 'Player 2 Character'},
 	{id: 'bracketlocation', placeholder: 'Bracket Location'}
 ]
+
 
 $(() => {
 	dialog = nodecg.getDialog('set-info');
@@ -29,8 +30,8 @@ $(() => {
 });
 
 function loadInfo(){
-	setDataCurrent = playerDataArray.value;
-
+	setDataCurrent = clone(defaultSetObject.value);
+	console.log(setDataCurrent);
 	for (var i=0; i < playerDataInputs.length; i++){
 		var value = setDataCurrent[playerDataInputs[i].id];
 		var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'>`);
@@ -41,6 +42,7 @@ function loadInfo(){
 
 function saveInfo(){
 	setData = clone(setDataCurrent);
+	console.log(setData);
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
 		setData[playerDataInputs[i].id] = input;
