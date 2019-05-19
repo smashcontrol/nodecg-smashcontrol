@@ -13,6 +13,9 @@
     "extension.js",
     "extension"
   ],
+  "dependencies": {
+    "clone": "^2.1.1"
+  },
   "keywords": [
     "",
     "nodecg-bundle"
@@ -25,15 +28,23 @@
         "title": "Current Set",
         "width": 9,
         "file": "player-info.html",
-        "workspace": "Player Info",
+        "workspace": "Set Info",
         "headerColor": "#525F78"
       },
       {
-        "name": "upcoming-sets",
-        "title": "Upcoming Sets",
+        "name": "stream-queue",
+        "title": "Stream Queue",
         "width": 3,
         "file": "upcoming-sets.html",
-        "workspace": "Player Info",
+        "workspace": "Set Info",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "set-search",
+        "title": "Search for Set",
+        "width": 3,
+        "file": "set-search.html",
+        "workspace": "Set Info",
         "headerColor": "#525F78"
       },
 	    {
@@ -43,6 +54,39 @@
         "file": "game-setup.html",
         "workspace": "Game Setup",
         "headerColor": "#525F78"
+      },
+      {
+        "name": "tourney-import",
+        "title": "Tournament Import",
+        "width": 2,
+        "file": "game-setup.html",
+        "workspace": "Tournament Info",
+        "headerColor": "#525F78"
+      },
+      {
+        "name": "tourney-info",
+        "title": "Tournament Info",
+        "width": 3,
+        "file": "game-setup.html",
+        "workspace": "Tournament Info",
+        "headerColor": "#525F78"
+      },
+	  {
+        "name": "set-info",
+        "title": "Edit Set Info",
+        "width": 5,
+        "file": "setInfoDialog.html",
+        "dialog": true,
+        "dialogButtons": [
+          {
+            "name": "edit set",
+            "type": "confirm"
+          },
+          {
+            "name": "cancel",
+            "type": "dismiss"
+          }
+        ]
       }
     ]
   },

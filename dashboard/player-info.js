@@ -1,45 +1,43 @@
-var playerDataArray
+function changeScore(player, change){
+	let playername = (player == 1) ? $('.player1-score') : $('.player2-score');
+	let score = parseInt(playername.html());
+	score += change;
+	score = (score < 0) ? 0 : ((score > 99) ? 99 : score);
+	playername.html(score);
+}
 
-
-var playerDataInputs = [
-	{id: 'player1-name', placeholder: 'Player 1 Tag'},
-	{id: 'player1-character', placeholder: 'Player 1 Character'},
-	{id: 'player2-name', placeholder: 'Player 2 Tag'},
-	{id: 'player2-character', placeholder: 'Player 2 Character'}
-]
-
-$(() => {
-	playerDataArray = nodecg.Replicant('playerDataArray');
-});
-
-
+/* ===================================== */
 
 $(function(){
-	$('.score-button').on('click', changeScore);
+	var $editSetButton = $('.editCurrentSet');
+
+	function init() {
+		$editSetButton.button({});
+		$editSetButton.click(() => {
+			nodecg.getDialog('set-info').querySelector('iframe').contentWindow.loadInfo();
+			nodecg.getDialog('set-info').open();
+		})
+	}
+	init();
+})
+
+$(() => {
+	var player1tag = $('.player1-tag');
+	var player2tag = $('.player2-tag');
+	var player1character = $('.player1-character');
+	var player2character = $('.player2-character');
+	var bracketlocation = $('.bracket-location');
+	var setDataCurrent = nodecg.Replicant('playerDataArray');
+	setDataCurrent.on('change', (newVal, oldVal) => {
+		if (newVal) {
+			updateFields(newVal);
+		}
+	});
+	function updateFields(setData){
+		console.log("updating fields");
+		player1tag.html(setData.player1tag);
+		player2tag.html(setData.player2tag);
+		bracketlocation.html(setData.bracketlocation);
+	}
 
 });
-function changeScore(){
-	let op = $(this).html();
-	let parent = $(this).parent().parent().attr('class');
-	if(parent === 'player1-info'){
-		let player = $('.player1-score');
-		let score = parseInt(player.html());
-		if(op === '+1'){
-			score++;
-			player.html(score);
-		} else{
-			score = (score-- > 0) ? score : 0;
-			player.html(score);
-		}
-	} else {
-		let player = $('.player2-score');
-		let score = parseInt(player.html());
-		if(op === '+1'){
-			score++;
-			player.html(score);
-		} else{
-			score = (score-- > 0) ? score : 0;
-			player.html(score);
-		}
-	}
-}
