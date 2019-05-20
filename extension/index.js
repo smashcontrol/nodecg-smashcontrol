@@ -8,7 +8,4 @@ module.exports = function(nodecg) {
 	// This must be done before any other files are `require`d.
 	nodecgAPIContext.set(nodecg);
 
-	// Other extension files we need to load.
-	require('./set-info');
-
 }

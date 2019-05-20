@@ -32,7 +32,6 @@ $(() => {
 		}
 	});
 	function updateFields(setData){
-		console.log("updating fields");
 		player1tag.html(setData.player1tag);
 		player2tag.html(setData.player2tag);
 		bracketlocation.html(setData.bracketlocation);

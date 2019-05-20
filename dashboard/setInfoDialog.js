@@ -19,6 +19,11 @@ $(() => {
 	dialog = nodecg.getDialog('set-info');
 	playerDataArray = nodecg.Replicant('playerDataArray');
 	defaultSetObject = nodecg.Replicant('defaultSetObject');
+	defaultSetObject.value = {
+			player1tag: '',
+			player2tag: '',
+			bracketlocation: ''
+		};
 	playerDataInputsContainer = $('#playerDataInputs');
 	document.addEventListener('dialog-confirmed', () => {
 		saveInfo();
@@ -30,8 +35,10 @@ $(() => {
 });
 
 function loadInfo(){
-	setDataCurrent = clone(defaultSetObject.value);
-	console.log(setDataCurrent);
+	if(playerDataArray.value.length === 0 || typeof playerDataArray.value === "undefined"){
+		setDataCurrent = clone(defaultSetObject.value);
+	}
+	else{ setDataCurrent = playerDataArray.value;}
 	for (var i=0; i < playerDataInputs.length; i++){
 		var value = setDataCurrent[playerDataInputs[i].id];
 		var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'>`);
@@ -42,7 +49,6 @@ function loadInfo(){
 
 function saveInfo(){
 	setData = clone(setDataCurrent);
-	console.log(setData);
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
 		setData[playerDataInputs[i].id] = input;
