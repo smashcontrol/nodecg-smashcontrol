@@ -1,17 +1,17 @@
 var playerDataArray,
 	dialog,
 	defaultSetObject,
-	playerDataInputContainer;
+	playerDataInputContainer,
+	gameSelection;
 
 
 var playerDataInputs = [
 	{id: 'player1tag', placeholder: 'Player 1 Tag'},
-	//{id: 'player1character', placeholder: 'Player 1 Character'},
-	//{id: 'player1score', placeholder: 'Player 1 Score'},
 	{id: 'player2tag', placeholder: 'Player 2 Tag'},
-	//{id: 'player2score', placeholder: 'Player 2 Score'},
-	//{id: 'player2character', placeholder: 'Player 2 Character'},
-	{id: 'bracketlocation', placeholder: 'Bracket Location'}
+	{id: 'bracketlocation', placeholder: 'Bracket Location'},
+	{id: 'player1character', placeholder: 'Player 1 Character'},
+	{id: 'player2character', placeholder: 'Player 2 Character'},
+	{id: 'game', placeholder: 'game'}
 ]
 
 
@@ -21,10 +21,17 @@ $(() => {
 	defaultSetObject = nodecg.Replicant('defaultSetObject');
 	defaultSetObject.value = {
 			player1tag: '',
+			bracketlocation: '',
 			player2tag: '',
-			bracketlocation: ''
+			player1character: 'images/ssb64/Mario.png',
+			player2character: 'images/ssb64/Mario.png',
+			game: 'ssb64'
 		};
+	gameSelection = nodecg.Replicant('gameSelection');
+	player1Character = nodecg.Replicant('player1Character');
+	player2Character = nodecg.Replicant('player2Character');
 	playerDataInputsContainer = $('#playerDataInputs');
+
 	document.addEventListener('dialog-confirmed', () => {
 		saveInfo();
 		playerDataInputsContainer.empty();
@@ -39,9 +46,21 @@ function loadInfo(){
 		setDataCurrent = clone(defaultSetObject.value);
 	}
 	else{ setDataCurrent = playerDataArray.value;}
-	for (var i=0; i < playerDataInputs.length; i++){
+	//To reset to default, uncomment, run + save, recomment
+	//setDataCurrent = clone(defaultSetObject.value);
+	for (var i=0; i < 3; i++){
 		var value = setDataCurrent[playerDataInputs[i].id];
-		var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'>`);
+		//TODO player characters based on game selected
+		switch(playerDataInputs[i].id){
+			case "player1tag":
+			case "player2tag":
+			case "bracketlocation":
+				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'>`);
+			/*case "player1character":
+			case "player2character":*/
+			default:
+
+		}
 		input.val(value);
 		playerDataInputsContainer.append(input);
 	}
@@ -51,7 +70,11 @@ function saveInfo(){
 	setData = clone(setDataCurrent);
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
-		setData[playerDataInputs[i].id] = input;
+		if(typeof input === "undefined"){
+			continue;
+		} else {
+			setData[playerDataInputs[i].id] = input;
+		}
 	}
 	playerDataArray.value = setData;
 

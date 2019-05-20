@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
+
 	<script src="player-info.js"></script>
 	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/black-tie/jquery-ui.css"/>
 	<link rel="stylesheet" href="player-info.css"/>
 
-	<script>
-	
-	</script>
+
 </head>
 <body>
 	<div class="set-info">
 		<div class="player1-info">
 			<div class="player1-tag">Player 1</div><br>
-			<div class="character player1-character"><img src="images/ssbm/Marth.png" height="64" width="64"></div><br>
+			<div class="character player1-character"><img class="p1ch" src="images/ssbm/Marth.png" height="64" width="64"></div><br>
 			<div>
 				<button class="ui-button score-button" onclick="changeScore(1, -1)">-1</button>
 				<button class="ui-button score-button" onclick="changeScore(1, 1)">+1</button>
