@@ -1,7 +1,7 @@
 
 function changeScore(player, change){
-	var scoreReplicant = (player == 1) ? nodecg.Replicant('player1Score') : nodecg.Replicant('player2Score');
-	var playername = (player == 1) ? $('.player1-score') : $('.player2-score');
+	var scoreReplicant = (player === 1) ? nodecg.Replicant('player1Score') : nodecg.Replicant('player2Score');
+	var playername = (player === 1) ? $('.player1-score') : $('.player2-score');
 
 	NodeCG.waitForReplicants(scoreReplicant).then(() => {
 		var score = Number(scoreReplicant.value);
@@ -37,7 +37,7 @@ $(function(){
 		})
 	}
 	init();
-})
+});
 
 $(() => {
 	updateScores();
@@ -66,8 +66,10 @@ $(() => {
 	function updateFields(setData){
 		player1tag.html(setData.player1tag);
 		player2tag.html(setData.player2tag);
-		player1character.children().attr('src', setData.player1character);
-		player2character.children().attr('src', setData.player2character);
+		p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
+		p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
+		player1character.children().attr('src', p1ch);
+		player2character.children().attr('src', p2ch);
 		bracketlocation.html(setData.bracketlocation);
 	}
 
