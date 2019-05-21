@@ -41,13 +41,14 @@ $(() => {
 	document.addEventListener('dialog-dismissed', () => {
 		playerDataInputsContainer.empty();
 	});
+
 });
 
 function loadInfo(){
-	if(playerDataArray.value.length === 0 || typeof playerDataArray.value === "undefined"){
-		setDataCurrent = clone(defaultSetObject.value);
+	setDataCurrent = clone(defaultSetObject.value);
+	if(playerDataArray.value != undefined){
+		setDataCurrent = playerDataArray.value;
 	}
-	else{ setDataCurrent = playerDataArray.value;}
 	NodeCG.waitForReplicants(gameSelection).then(() => {
 		setDataCurrent["game"] = gameSelection.value;
 	});
@@ -87,6 +88,7 @@ function saveInfo(){
 	}
 
 	playerDataArray.value = setData;
+	
 }
 
 
