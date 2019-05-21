@@ -48,8 +48,9 @@ function loadInfo(){
 		setDataCurrent = clone(defaultSetObject.value);
 	}
 	else{ setDataCurrent = playerDataArray.value;}
-	//To reset to default, uncomment, run + save, recomment
-
+	NodeCG.waitForReplicants(gameSelection).then(() => {
+		setDataCurrent["game"] = gameSelection.value;
+	});
 	for (var i=0; i < 5; i++){
 		var value = setDataCurrent[playerDataInputs[i].id];
 		//TODO player characters based on game selected
@@ -62,7 +63,7 @@ function loadInfo(){
 
 			case "player1character":
 			case "player2character":
-				game = setDataCurrent["game"];
+				var game = gameSelection.value;
 				var input = constructCharacterDropdown(game, playerDataInputs[i].id);
 				break;
 
@@ -78,7 +79,6 @@ function loadInfo(){
 function saveInfo(){
 	var setData = clone(setDataCurrent);
 
-
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
 		if(typeof input === "undefined"){} else {
@@ -87,7 +87,7 @@ function saveInfo(){
 	}
 
 	playerDataArray.value = setData;
-
+	console.log(playerDataArray.value);
 }
 
 

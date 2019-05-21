@@ -41,21 +41,17 @@ $(function(){
 
 $(() => {
 	updateScores();
-	/*
-	var games = ["ssb64", "ssbm", "ssbb", "ssbpm", "ssb4", "ssbult"];
-	var characters = ["Mario", "Pikachu", "Luigi"];
-	games.forEach(function(game){
-		characters.forEach(function(character){
-			console.log("/images/" + game + "/" + character + ".png");
-		});
-	});
-	*/
 	var player1tag = $('.player1-tag');
 	var player2tag = $('.player2-tag');
 	var player1character = $('.player1-character');
 	var player2character = $('.player2-character');
 	var bracketlocation = $('.bracket-location');
-
+	var gameSelection = nodecg.Replicant('gameSelection');
+	NodeCG.waitForReplicants(gameSelection).then(() =>{
+		if(typeof gameSelection.value === "undefined" || gameSelection.value === ''){
+			gameSelection.value = "ssb64";
+		}
+	});
 	//player1character.children().attr("src", "images/ssbb/Falcon.png");
 	var setDataCurrent = nodecg.Replicant('playerDataArray');
 	setDataCurrent.on('change', (newVal, oldVal) => {
