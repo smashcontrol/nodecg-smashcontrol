@@ -17,8 +17,14 @@ function updateScores(){
 	var player1Replicant = nodecg.Replicant('player1Score');
 	var player2Replicant = nodecg.Replicant('player2Score');
 	NodeCG.waitForReplicants(player1Replicant, player2Replicant).then(() =>{
-		$('.player1-score').html(player1Replicant.value);
-		$('.player2-score').html(player2Replicant.value);
+		if(player1Replicant.value !== '' && player2Replicant.value !== ''){
+			$('.player1-score').html(player1Replicant.value);
+			$('.player2-score').html(player2Replicant.value);
+		} else {
+			$('.player1-score').html(0);
+			$('.player2-score').html(0);
+		}
+		
 	});
 }
 

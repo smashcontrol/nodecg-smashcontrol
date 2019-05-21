@@ -46,7 +46,8 @@ $(() => {
 
 function loadInfo(){
 	setDataCurrent = clone(defaultSetObject.value);
-	if(playerDataArray.value != undefined){
+	console.log(playerDataArray.value);
+	if(playerDataArray.value != undefined && playerDataArray.value != ''){
 		setDataCurrent = playerDataArray.value;
 	}
 	NodeCG.waitForReplicants(gameSelection).then(() => {
@@ -79,7 +80,6 @@ function loadInfo(){
 
 function saveInfo(){
 	var setData = clone(setDataCurrent);
-
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
 		if(typeof input === "undefined"){} else {
