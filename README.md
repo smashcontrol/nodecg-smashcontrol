@@ -33,7 +33,7 @@ Future features include:
 * Better UI/Documentation
 
 #### Used By
-[RIT Smash Club](twitter.com/RITSmashClub)
+[RIT Smash Club](https://twitter.com/RITSmashClub)
 
 #### Credits
 This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).
