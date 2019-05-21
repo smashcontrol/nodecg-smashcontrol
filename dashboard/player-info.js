@@ -1,26 +1,32 @@
-
 function changeScore(player, change){
 	var scoreReplicant = (player === 1) ? nodecg.Replicant('player1Score') : nodecg.Replicant('player2Score');
 	var playername = (player === 1) ? $('.player1-score') : $('.player2-score');
 
 	NodeCG.waitForReplicants(scoreReplicant).then(() => {
 		var score = Number(scoreReplicant.value);
+		if(isNaN(score)){
+			score = 0;
+		}
 		score += change;
 		score = (score < 0) ? 0 : ((score > 99) ? 99 : score);
+		
 		playername.html(score);
 		scoreReplicant.value = playername.html();
-
 	});
 }
 
 function updateScores(){
 	var player1Replicant = nodecg.Replicant('player1Score');
 	var player2Replicant = nodecg.Replicant('player2Score');
+	
 	NodeCG.waitForReplicants(player1Replicant, player2Replicant).then(() =>{
-		if(player1Replicant.value !== '' && player2Replicant.value !== ''){
-			$('.player1-score').html(player1Replicant.value);
-			$('.player2-score').html(player2Replicant.value);
-		} else {
+	if(player1Replicant.value !== ''){
+		$('.player1-score').html(player1Replicant.value);
+	}
+	if(player2Replicant.value !== ''){
+		$('.player2-score').html(player2Replicant.value);
+	} 
+	else {
 			$('.player1-score').html(0);
 			$('.player2-score').html(0);
 		}
