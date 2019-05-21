@@ -1,29 +1,43 @@
-# nodecg-smashcontrol
+nodecg-smashcontrol v0.1.0
 ----
 
-nodecg-smashcontrol is a bundle for NodeCG that will help Smash Bros. tournament streamers efficiently change player names, character icons and place in braceket.
-
-#### Proposed Features
-* Change Player names, character icons and score to output to the stream via html/css.
-* Different modes for each Smash game, each with their own package of character icons.
-* Use of smash.gg and Challonge's APIs to load and display sets.
-
-#### Timeline/Order of Feature Rollout
-
-  ##### NodeCG
-  * Make panels for players/scores, buttons to increment score + update on stream
-  * Radio buttons for game selection, possible using event name to auto select for character icons.
-  * Allow custom image packages (default is Smash games, can be expanded to Rivals, other FGC games if requested).
-  * Access API's depending on source (likely one panel for each source, overwrite if re-entered).
-
-  ##### API Usage
-  * Manually enter players/scores, output to JSON or an API to be accessed by frontend.
-  * Use smash.gg's API to get tournaments -> events -> output sets in events, also get place in bracket (Pool number, winner's bracket, loser's eighths, etc).
-  * Use Challonge's API (if necessary) for wider access.
-  * Allow all values to be manually updated if the streamer wants a different value than is automatically generated.
+*This is a bundle for [NodeCG](http://nodecg.com/). It is required for use of this application.*
 
 
+nodecg-smashcontrol, or SmashControl, is a NodeCG bundle/application that is designed for use by Smash
+tournament streamers to make switching between sets easier, and to avoid the hassle of OBS text, positioning, etc.
+ 
+  
+This bundle does *not* come with any graphics, a simple example can be found at [smashcontrol-simpletext](https://github.com/smashcontrol/smashcontrol-simpletext).
+
+## Installation
+
+To get started with SmashControl, you must have [Node.js](https://nodejs.org/) and [git](https://git-scm.com/) installed,
+then look through the [NodeCG Documentation](http://nodecg.com/) to install that.
+
+After these are installed, run the following in the directory in which you want to install the program:
+```
+npm install bower -g
+npm install nodecg-cli -g
+nodecg setup
+nodecg install smashcontrol/nodecg-smashcontrol
+nodecg start
+```
+
+After this, open `https://localhost:9090` (unless otherwise specified in config) in a browser.
+
+Further documentation will be released as more features become developed.
+
+Future features include:
+* smash.gg API usage to get Stream Queue, search for sets and load them automatically.
+* Better UI/Documentation
+
+#### Used By
+[RIT Smash Club](twitter.com/RITSmashClub)
 
 #### Credits
 This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).
 
+#### Contribution/Issues
+The `master` branch will always contain the most recent, stable version. Other branches may contain unstable or unfinished
+features, so use at your own risk. If there are any issues with the program, feel free to raise an Issue/Pull Request on GitHub. 

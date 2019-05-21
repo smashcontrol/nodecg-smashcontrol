@@ -87,7 +87,6 @@ function saveInfo(){
 	}
 
 	playerDataArray.value = setData;
-	console.log(playerDataArray.value);
 }
 
 
@@ -95,17 +94,22 @@ function constructCharacterDropdown(game, id_tag){
 	var characters =  getCharacters(game);
 	var index = $('<select />').attr("class", id_tag);
 	characters.forEach(function(item){
-		$('<option />', {value: item, text: item}).appendTo(index);
+		if(item !== "ROB"){
+			var properName = item.match(/[A-Z][a-z]+|[A-Z]+/g).join(" ");
+		} else {
+			properName = "ROB";
+		}
+		$('<option />', {value: item, text: properName}).appendTo(index);
 	});
 	return index;
 }
 
 
 function getCharacters(game){
-	var smash64 = ["Mario", "Luigi", "Yoshi", "Pikachu", "Fox", "Samus", "Falcon", "Jigglypuff", "Ness", "Kirby", "Link", "DK"];
+	var smash64 = ["Mario", "Luigi", "Yoshi", "Pikachu", "Fox", "Samus", "Falcon", "Jigglypuff", "Ness", "Kirby", "Link", "DonkeyKong"];
 
 	var melee = smash64.concat(["Peach", "Bowser", "Marth", "Zelda", "Sheik", "Ganondorf", "Falco", "IceClimbers",
-						"MrGameandWatch", "DrMario", "YoungLink", "Mewtwo", "Roy"]);
+						"MrGameAndWatch", "DrMario", "YoungLink", "Mewtwo", "Roy"]);
 
 	var brawl = melee.slice(0, -4).concat(["DiddyKong", "MetaKnight", "KingDedede", "ToonLink", "ZeroSuitSamus", "Charizard",
 										"Lucario", "Lucas", "Ike", "Wario", "Pit", "Olimar", "ROB", "Sonic", "Snake",
@@ -113,7 +117,7 @@ function getCharacters(game){
 
 	var pm = brawl.concat(["Mewtwo", "Roy"]);
 
-	var wiiu = brawl.slice(0, -5).concat(["Mewtwo", "Roy", "Rosalina", "Alph", "BowserJr", "RoyKoopa", "Wendy", "Iggy", "Lemmy", "Morton", "Ludwig", "Larry", "Greninja",
+	var wiiu = brawl.slice(0, -5).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "Alph", "BowserJr", "RoyKoopa", "Wendy", "Iggy", "Lemmy", "Morton", "Ludwig", "Larry", "Greninja",
 										"Lucina", "CorrinFemale", "CorrinMale", "Robin", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
 										"WiiFitMale", "WiiFitFemale", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
 
@@ -121,9 +125,10 @@ function getCharacters(game){
 		return item !== "IceClimbers";
 	});
 
-	var ultimate = wiiu.concat(["IceClimbers", "DrMario", "YoungLink", "Snake", "Wolf", "PokemonTrainer", "Squirtle",
-							"Ivysaur", "Daisy", "PiranhaPlant", "KingKRool", "Ridley", "DarkSamus", "Incineroar",
-							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker"]);
+	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "DrMario", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale", "Squirtle",
+							"Ivysaur", "Daisy", "PiranhaPlant", "KingK.Rool", "Ridley", "DarkSamus", "Incineroar",
+							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
+							"MiiSwordfighter", "MiiBrawler"]);
 	switch(game){
 		case "ssb64":
 			return smash64.sort();
@@ -139,3 +144,4 @@ function getCharacters(game){
 			return ultimate.sort();
 	}
 }
+
