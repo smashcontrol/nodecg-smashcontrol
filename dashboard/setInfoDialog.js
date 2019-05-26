@@ -46,7 +46,7 @@ $(() => {
 
 function loadInfo(){
 	setDataCurrent = clone(defaultSetObject.value);
-	console.log(playerDataArray.value);
+	//console.log(playerDataArray.value);
 	if(playerDataArray.value != undefined && playerDataArray.value != ''){
 		setDataCurrent = playerDataArray.value;
 	}

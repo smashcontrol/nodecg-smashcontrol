@@ -76,6 +76,11 @@ $(() => {
 		player2tag.html(setData.player2tag);
 		p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
 		p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
+		if(setData.game === "ssb64"){
+			$('.character').children().attr({"height": 60, "width": 48});
+		} else {
+			$('.character').children().attr({"height": 64, "width": 64});
+		}
 		player1character.children().attr('src', p1ch);
 		player2character.children().attr('src', p2ch);
 		bracketlocation.html(setData.bracketlocation);
