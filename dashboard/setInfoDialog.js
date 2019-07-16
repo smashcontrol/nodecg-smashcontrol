@@ -127,10 +127,10 @@ function getCharacters(game){
 		return item !== "IceClimbers";
 	});
 
-	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "DrMario", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale", "Squirtle",
+	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale", "Squirtle",
 							"Ivysaur", "Daisy", "PiranhaPlant", "KingK.Rool", "Ridley", "DarkSamus", "Incineroar",
 							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
-							"MiiSwordfighter", "MiiBrawler"]);
+							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero"]);
 	switch(game){
 		case "ssb64":
 			return smash64.sort();
