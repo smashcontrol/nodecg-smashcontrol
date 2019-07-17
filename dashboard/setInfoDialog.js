@@ -13,7 +13,7 @@ var playerDataInputs = [
 	{id: 'bracketlocation', placeholder: 'Bracket Location'},
 	{id: 'player1character', placeholder: 'Player 1 Character'},
 	{id: 'player2character', placeholder: 'Player 2 Character'},
-	{id: 'game', placeholder: 'game'}
+	{id: 'game', placeholder: 'game'},
 ];
 
 
@@ -27,7 +27,7 @@ $(() => {
 			player2tag: '',
 			player1character: 'Mario',
 			player2character: 'Mario',
-			game: 'ssb64'
+			game: 'ssb64',
 		};
 	gameSelection = nodecg.Replicant('gameSelection');
 	player1Character = nodecg.Replicant('player1Character');
@@ -46,7 +46,6 @@ $(() => {
 
 function loadInfo(){
 	setDataCurrent = clone(defaultSetObject.value);
-	//console.log(playerDataArray.value);
 	if(playerDataArray.value != undefined && playerDataArray.value != ''){
 		setDataCurrent = playerDataArray.value;
 	}
@@ -55,7 +54,6 @@ function loadInfo(){
 	});
 	for (var i=0; i < 5; i++){
 		var value = setDataCurrent[playerDataInputs[i].id];
-		//TODO player characters based on game selected
 		switch(playerDataInputs[i].id){
 			case "player1tag":
 			case "player2tag":
@@ -86,9 +84,7 @@ function saveInfo(){
 			setData[playerDataInputs[i].id] = input;
 		}
 	}
-
 	playerDataArray.value = setData;
-	
 }
 
 

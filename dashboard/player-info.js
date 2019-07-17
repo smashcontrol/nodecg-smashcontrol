@@ -18,7 +18,6 @@ function changeScore(player, change){
 function updateScores(){
 	var player1Replicant = nodecg.Replicant('player1Score');
 	var player2Replicant = nodecg.Replicant('player2Score');
-
 	NodeCG.waitForReplicants(player1Replicant, player2Replicant).then(() =>{
 	if(player1Replicant.value !== ''){
 		$('.player1-score').html(player1Replicant.value);
@@ -30,7 +29,6 @@ function updateScores(){
 			$('.player1-score').html(0);
 			$('.player2-score').html(0);
 		}
-
 	});
 }
 
@@ -71,7 +69,6 @@ $(() => {
 			updateFields(newVal);
 		}
 	});
-
 	function updateFields(setData){
 		player1tag.html(setData.player1tag);
 		player2tag.html(setData.player2tag);
@@ -93,13 +90,13 @@ $(() => {
 		var temp;
 		var player1Score = nodecg.Replicant('player1Score');
 		var player2Score = nodecg.Replicant('player2Score');
-
 		var playerDataArray = nodecg.Replicant('playerDataArray');
 		NodeCG.waitForReplicants(player1Score, player2Score, playerDataArray).then(() => {
 			temp = player1Score.value;
 			player1Score.value = player2Score.value;
 			player2Score.value = temp;
-			updateScores();
+			$('.player1-score').html(player2Score.value);
+			$('.player2-score').html(player1Score.value);
 
 			temp = playerDataArray.value['player1tag'];
 			playerDataArray.value['player1tag'] = playerDataArray.value['player2tag'];
