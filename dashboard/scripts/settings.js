@@ -1,10 +1,10 @@
 function verifyAuth(){
 	nodecg.sendMessage('api-init', $('.auth-input').val(), (error, result) =>{
 		if (error){
-			$('.auth-result').html(error);
+			$('.auth-result').text(error);
 			return;
 		}
-		$('.auth-result').html(result);
+		$('.auth-result').text(result);
 	});
 }
 

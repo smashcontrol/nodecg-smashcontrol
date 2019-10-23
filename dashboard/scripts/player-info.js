@@ -11,25 +11,34 @@ function changeScore(player, change){
 		score += change;
 		score = (score < 0) ? 0 : ((score > 99) ? 99 : score); // Bounds between 0 and 99, inclusive
 
-		playername.html(score);
-		scoreReplicant.value = playername.html();
+		playername.text(score);
+		scoreReplicant.value = playername.text();
 	});
 }
 
+function reset(){
+	var player1Repl = nodecg.Replicant('player1Score');
+	var player2Repl = nodecg.Replicant('player2Score');
+	
+	NodeCG.waitForReplicants(player1Repl, player2Repl).then(() => {
+		changeScore(1, (player1Repl.value * -1));
+		changeScore(2, (player2Repl.value * -1));
+	});
+}
 function updateScores(){
 	// Score init
 	var player1Replicant = nodecg.Replicant('player1Score');
 	var player2Replicant = nodecg.Replicant('player2Score');
 	NodeCG.waitForReplicants(player1Replicant, player2Replicant).then(() =>{
 	if(player1Replicant.value !== ''){
-		$('.player1-score').html(player1Replicant.value);
+		$('.player1-score').text(player1Replicant.value);
 	}
 	if(player2Replicant.value !== ''){
-		$('.player2-score').html(player2Replicant.value);
+		$('.player2-score').text(player2Replicant.value);
 	}
 	else {
-			$('.player1-score').html(0);
-			$('.player2-score').html(0);
+			$('.player1-score').text(0);
+			$('.player2-score').text(0);
 		}
 	});
 }
@@ -72,8 +81,8 @@ $(() => {
 		}
 	});
 	function updateFields(setData){
-		player1tag.html(setData.player1tag);
-		player2tag.html(setData.player2tag);
+		player1tag.text(setData.player1tag);
+		player2tag.text(setData.player2tag);
 		p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
 		p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
 		if(setData.game === "ssb64"){
@@ -84,7 +93,7 @@ $(() => {
 		}
 		player1character.children().attr('src', p1ch);
 		player2character.children().attr('src', p2ch);
-		bracketlocation.html(setData.bracketlocation);
+		bracketlocation.text(setData.bracketlocation);
 	}
 	$('.swap').on("click", function(){
 		swap()
@@ -99,8 +108,8 @@ $(() => {
 			temp = player1Score.value;
 			player1Score.value = player2Score.value;
 			player2Score.value = temp;
-			$('.player1-score').html(player2Score.value);
-			$('.player2-score').html(player1Score.value);
+			$('.player1-score').text(player2Score.value);
+			$('.player2-score').text(player1Score.value);
 
 			temp = playerDataArray.value['player1tag'];
 			playerDataArray.value['player1tag'] = playerDataArray.value['player2tag'];
