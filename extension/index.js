@@ -7,5 +7,5 @@ module.exports = function(nodecg) {
 	// This must be done before any other files are `require`d.
 	nodecgAPIContext.set(nodecg);
 	require('./smashgg-endpoint');
-}
+};
 

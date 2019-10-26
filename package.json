@@ -59,7 +59,7 @@
       {
         "name": "tourney-import",
         "title": "Tournament Import",
-        "width": 2,
+        "width": 3,
         "file": "tourney-import.html",
         "workspace": "3. Tournament Info",
         "headerColor": "#525F78"
@@ -67,7 +67,7 @@
       {
         "name": "tourney-info",
         "title": "Tournament Info",
-        "width": 3,
+        "width": 5,
         "file": "tourney-info.html",
         "workspace": "3. Tournament Info",
         "headerColor": "#525F78"

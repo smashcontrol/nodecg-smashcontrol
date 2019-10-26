@@ -16,10 +16,10 @@ function changeScore(player, change){
 	});
 }
 
-function reset(){
+function resetScore(){
 	var player1Repl = nodecg.Replicant('player1Score');
 	var player2Repl = nodecg.Replicant('player2Score');
-	
+
 	NodeCG.waitForReplicants(player1Repl, player2Repl).then(() => {
 		changeScore(1, (player1Repl.value * -1));
 		changeScore(2, (player2Repl.value * -1));
