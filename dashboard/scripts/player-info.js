@@ -83,8 +83,8 @@ $(() => {
 	function updateFields(setData){
 		player1tag.text(setData.player1tag);
 		player2tag.text(setData.player2tag);
-		p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
-		p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
+		var p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
+		var p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
 		if(setData.game === "ssb64"){
 			// 64's character icons are a different aspect ratio
 			$('.character').children().attr({"height": 60, "width": 48});
