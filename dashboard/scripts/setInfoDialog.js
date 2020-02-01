@@ -129,7 +129,7 @@ function getCharacters(game){
 	var pm = brawl.concat(["Mewtwo", "Roy"]);
 
 	var wiiu = brawl.slice(0, -5).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "RoyKoopa", "Wendy", "Iggy", "Lemmy", "Morton", "Ludwig", "Larry", "Greninja",
-										"Lucina", "CorrinFemale", "CorrinMale", "Robin", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
+										"Lucina", "CorrinFemale", "CorrinMale", "RobinFemale", "RobinMale", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
 										"WiiFitMale", "WiiFitFemale", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
 
 	wiiu = wiiu.filter(function (item) {
