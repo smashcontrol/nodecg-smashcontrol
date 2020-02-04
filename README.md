@@ -1,4 +1,4 @@
-nodecg-smashcontrol v0.1.0
+nodecg-smashcontrol v0.9.0
 ----
 
 *This is a bundle for [NodeCG](http://nodecg.com/). It is required for use of this application.*
@@ -29,7 +29,6 @@ After this, open `https://localhost:9090` (unless otherwise specified in config)
 Further documentation will be released as more features become developed.
 
 Future features include:
-* smash.gg API usage to get Stream Queue, search for sets and load them automatically.
 * Better UI/Documentation
 
 #### Used By
