@@ -1,19 +1,19 @@
-require('colors');
 const smashgg = require('smashgg.js');
 
 var nodecg = require('./nodecg-api-context').get();
 var apiRepl = nodecg.Replicant("API-KEY");
 var tourneyRepl = nodecg.Replicant("currentTournament");
 var eventListRepl = nodecg.Replicant("eventList");
-var attendeeRepl = nodecg.Replicant("attendees");
 var streamQueueRepl = nodecg.Replicant("streamQueue");
 
 function init(){
+	// Load the API key into the smashgg.js package.
 	smashgg.initialize(apiRepl.value);
 }
 
 nodecg.listenFor('api-init', async (apiKey, ack) => {
-	var message = await verify(apiKey); // checking the key with init only calls back if the key is 32-bit or not, doesn't check functionality
+	// Checking the API key with smashgg.initalize() doesn't check if it's functional, just that it's 32-bit.
+	var message = await verify(apiKey);
 	if(message === false){
 		ack('API key invalid.', null);
 	} else {
@@ -26,6 +26,7 @@ nodecg.listenFor('url-import', async(url, ack) =>{
 	try {
 		var tourneyUrl = new URL(url);
 	} catch(err){
+		// Making the URL will error if it's not in a full URL format.
 		ack("Please enter a full URL, including the \'https://\'.", null);
 		return;
 	}
@@ -52,7 +53,7 @@ nodecg.listenFor('queue-import', async(event, ack) => {
 });
 
 async function verify(apiKey){
-	// Checks if the given API key is valid by running it against a query to smash.gg's API.
+	// Checks if the given API key is valid by running it against a quick query to smash.gg's API.
 	var test_query = 'query TestTournament($slug: String!){\n' +
 		'  tournament(slug:$slug){\n' +
 		'    name\n' +
@@ -86,12 +87,14 @@ async function tourneyImport(url){
 	}
 	try{
 		var tourn = await Tournament.get(shortSlug);
-		var realSlug = tourn.getSlug();  // shortSlug needs to be converted to the full value, /ceo2016 --> /tournament/ceo-2016
+		// shortSlug needs to be converted to the full value, /ceo2016 --> /tournament/ceo-2016
+		// This is set up before to be just the shortSlug to save on case checking.
+		var realSlug = tourn.getSlug();
 		tourn = await Tournament.get(realSlug);
 		var phases = await tourn.getPhases();
 		var allEvents = {};
-		var allAttendees = {};
 		for(var i=0; i < phases.length; i++){
+			// Pull the events from the phases. This might be able to be done easier.
 			if(allEvents[phases[i].eventId] === undefined){
 				var event = await smashgg.Event.getById(phases[i].eventId);
 				allEvents[phases[i].eventId] = await event.getName();
@@ -99,6 +102,7 @@ async function tourneyImport(url){
 		}
 		eventListRepl.value = allEvents;
 	} catch (err) {
+		// If no tourney can be found, just return null and finish.
 		return null;
 	}
 	return tourn;
@@ -113,6 +117,7 @@ async function loadStreamQueue(){
 		for(var j in stream.sets){
 			var set = stream.sets[j];
 			try{
+				// The "tag" will be null if there's nobody in the slot yet, so check it and put in TBD if so.
 				var player1Tag = set.slots[0].entrant.name;
 			} catch {
 				var player1Tag = "TBD";
@@ -122,6 +127,8 @@ async function loadStreamQueue(){
 			} catch {
 				var player2Tag = "TBD";
 			}
+			// set.fullRoundText returns things like "Winner's Semi-Final" in pools,
+			// TODO possibly make this more accurate based on pool status?
 			queue.push([stream.stream.streamName, player1Tag, player2Tag, set.fullRoundText]);
 		}
 	}
@@ -130,8 +137,9 @@ async function loadStreamQueue(){
 }
 
 async function getStreamQueue(tourneyName){
-	// smashgg.js shows null tags in the stream queue, so use a custom query.
-	var streamQueue = 'query StreamQueueOnTournament($tourneySlug: String!) {\n' +
+	// smashgg.js shows null tags in the stream queue, so use a custom query to get all of the required info.
+	var streamQueue =
+		'query StreamQueueOnTournament($tourneySlug: String!) {\n' +
 		'  tournament(slug: $tourneySlug) {\n' +
 		'    streamQueue {\n' +
 		'      stream {\n' +

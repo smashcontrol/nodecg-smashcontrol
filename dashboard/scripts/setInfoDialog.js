@@ -27,8 +27,8 @@ $(() => {
 	defaultSetObject = nodecg.Replicant('defaultSetObject');
 	defaultSetObject.value = {
 			player1tag: '',
-			bracketlocation: '',
 			player2tag: '',
+			bracketlocation: '',
 			player1character: 'Mario',
 			player2character: 'Mario',
 			commentator1: '',
@@ -59,7 +59,8 @@ function loadInfo(){
 	NodeCG.waitForReplicants(gameSelection).then(() => {
 		setDataCurrent["game"] = gameSelection.value;
 	});
-	for (var i=0; i < 7; i++){
+	for (var i=0; i < playerDataInputs.length; i++){
+		// Dynamically generate the dialog box based on the inputs. Cases will need to be modified if any further inputs added.
 		var value = setDataCurrent[playerDataInputs[i].id];
 		switch(playerDataInputs[i].id){
 			case "player1tag":
@@ -67,16 +68,19 @@ function loadInfo(){
 			case "bracketlocation":
 			case "commentator1":
 			case "commentator2":
+				// These fields just need a text input box.
 				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'></input>`);
 				break;
 
 			case "player1character":
 			case "player2character":
+				// Make the dropdown for characters based on the current game.
 				var game = gameSelection.value;
 				var input = constructCharacterDropdown(game, playerDataInputs[i].id);
 				break;
 
 			default:
+				// Anything not covered by these cases will be printed to the console and not generated.
 				console.log("default", playerDataInputs[i].id);
 
 		}
@@ -88,6 +92,7 @@ function loadInfo(){
 }
 
 function saveInfo(){
+	// Save the result of the dialog to a replicant, to access later.
 	var setData = clone(setDataCurrent);
 	for (var i=0; i < playerDataInputs.length; i++){
 		var input = $(`.${[playerDataInputs[i].id]}`).val();
@@ -100,6 +105,7 @@ function saveInfo(){
 
 
 function constructCharacterDropdown(game, id_tag){
+	// Generate HTML for a dropdown of characters to put in the dialog box.
 	var characters =  getCharacters(game);
 	var index = $('<select />').attr("class", id_tag);
 	characters.forEach(function(item){
@@ -122,25 +128,30 @@ function getCharacters(game){
 	var melee = smash64.concat(["Peach", "Bowser", "Marth", "Zelda", "Sheik", "Ganondorf", "Falco", "IceClimbers",
 						"MrGameAndWatch", "DrMario", "YoungLink", "Mewtwo", "Roy"]);
 
+	// Remove Dr. Mario, Young Link, Mewtwo, Roy
 	var brawl = melee.slice(0, -4).concat(["DiddyKong", "MetaKnight", "KingDedede", "ToonLink", "ZeroSuitSamus", "Charizard",
 										"Lucario", "Lucas", "Ike", "Wario", "Pit", "Olimar", "ROB", "Sonic", "Snake",
 										"Wolf", "PokemonTrainer", "Squirtle", "Ivysaur"]);
 
 	var pm = brawl.concat(["Mewtwo", "Roy"]);
 
+	// Remove Snake, Wolf, PT, Squirtle, Ivysaur
 	var wiiu = brawl.slice(0, -5).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "RoyKoopa", "Wendy", "Iggy", "Lemmy", "Morton", "Ludwig", "Larry", "Greninja",
 										"Lucina", "CorrinFemale", "CorrinMale", "RobinFemale", "RobinMale", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
 										"WiiFitMale", "WiiFitFemale", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
 
 	wiiu = wiiu.filter(function (item) {
+		// Can't remove IC's easily with slicing
 		return item !== "IceClimbers";
 	});
 
+	// Remove "Mii", instead use brawler/gunner/swordfighter
 	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale", "Squirtle",
 							"Ivysaur", "Daisy", "PiranhaPlant", "KingK.Rool", "Pichu", "Ridley", "DarkSamus", "Incineroar",
 							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
 							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "BylethMale", "BylethFemale"]); // Extendable for future DLC
 	switch(game){
+		// Sort the lists so they look decent in the dropdown.
 		case "ssb64":
 			return smash64.sort();
 		case "ssbm":
