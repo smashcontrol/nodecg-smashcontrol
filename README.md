@@ -8,7 +8,7 @@ nodecg-smashcontrol, or SmashControl, is a NodeCG bundle/application that is des
 tournament streamers to make switching between sets easier, and to avoid the hassle of OBS text, positioning, etc.
  
   
-This bundle does *not* come with any graphics, a simple example can be found at [smashcontrol-simpletext](https://github.com/smashcontrol/smashcontrol-simpletext).
+This bundle does *not* come with any graphics, but a simple example of its usage can be found at [smashcontrol-simpletext](https://github.com/smashcontrol/smashcontrol-simpletext).
 
 ## Installation
 
@@ -20,6 +20,7 @@ After these are installed, run the following in the directory in which you want 
 npm install bower -g
 npm install nodecg-cli -g
 nodecg setup
+npm install smashgg.js
 nodecg install smashcontrol/nodecg-smashcontrol
 nodecg start
 ```
@@ -35,7 +36,9 @@ Future features include:
 [RIT Smash Club](https://twitter.com/RITSmashClub)
 
 #### Credits
-This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).
+This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).    
+
+This program utilizes [smashgg.js](https://github.com/BrandonCookeDev/smashgg.js), developed by BrandonCookeDev.
 
 #### Contribution/Issues
 The `master` branch will always contain the most recent, stable version. Other branches may contain unstable or unfinished

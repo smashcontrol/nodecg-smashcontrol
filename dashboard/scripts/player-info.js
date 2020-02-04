@@ -17,6 +17,8 @@ function changeScore(player, change){
 }
 
 function resetScore(){
+	// For some reason, setting the score Replicants to 0 doesn't update properly, so just change the score
+	// by the negative of the current value.
 	var player1Repl = nodecg.Replicant('player1Score');
 	var player2Repl = nodecg.Replicant('player2Score');
 
@@ -26,7 +28,7 @@ function resetScore(){
 	});
 }
 function updateScores(){
-	// Score init
+	// Score init and update.
 	var player1Replicant = nodecg.Replicant('player1Score');
 	var player2Replicant = nodecg.Replicant('player2Score');
 	NodeCG.waitForReplicants(player1Replicant, player2Replicant).then(() =>{
@@ -51,7 +53,7 @@ $(function(){
 	var $editSetButton = $('.editCurrentSet');
 
 	function init() {
-		// Open the set modify dialog option when button is clicked.
+		// Open the set modify dialog box when button is clicked.
 		$editSetButton.button({});
 		$editSetButton.click(() => {
 			nodecg.getDialog('set-info').querySelector('iframe').contentWindow.loadInfo();
@@ -71,6 +73,7 @@ $(() => {
 	var gameSelection = nodecg.Replicant('gameSelection');
 	NodeCG.waitForReplicants(gameSelection).then(() =>{
 		if(typeof gameSelection.value === "undefined" || gameSelection.value === ''){
+			// Load something if it's not initialized.
 			gameSelection.value = "ssb64";
 		}
 	});
@@ -81,6 +84,7 @@ $(() => {
 		}
 	});
 	function updateFields(setData){
+		// Update the in-panel information based on the result from updating the setInfoDialog panel.
 		player1tag.text(setData.player1tag);
 		player2tag.text(setData.player2tag);
 		var p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
@@ -99,7 +103,7 @@ $(() => {
 		swap()
 	});
 	function swap(){
-		// Swap the sides for the playrs and change the corresponding Replicants.
+		// Swap the sides for the players and change the corresponding Replicants.
 		var temp;
 		var player1Score = nodecg.Replicant('player1Score');
 		var player2Score = nodecg.Replicant('player2Score');

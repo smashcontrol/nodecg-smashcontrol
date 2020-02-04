@@ -1,3 +1,9 @@
+/*
+	This panel sets up a dropdown for the game to load character icons/renders (if applicable) for.
+	Can likely be merged with another panel, but because it sees little use it's ok to be on its own page.
+ */
+
+
 $(() => {
 	var gamesList = {
 		"ssb64" : "Super Smash Bros. 64",
