@@ -59,7 +59,7 @@ function loadInfo(){
 	NodeCG.waitForReplicants(gameSelection).then(() => {
 		setDataCurrent["game"] = gameSelection.value;
 	});
-	for (var i=0; i < playerDataInputs.length; i++){
+	for (var i=0; i < playerDataInputs.length-1; i++){
 		// Dynamically generate the dialog box based on the inputs. Cases will need to be modified if any further inputs added.
 		var value = setDataCurrent[playerDataInputs[i].id];
 		switch(playerDataInputs[i].id){
