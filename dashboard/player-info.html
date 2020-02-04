@@ -5,9 +5,9 @@
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 	<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
 
-	<script src="player-info.js"></script>
-	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/black-tie/jquery-ui.css"/>
-	<link rel="stylesheet" href="player-info.css"/>
+	<script src="scripts/player-info.js" ></script>
+	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-theme/jquery-ui.css"/>
+	<link rel="stylesheet" href="css/player-info.css"/>
 
 
 </head>
@@ -26,6 +26,7 @@
 			<div class="player1-score">0</div>
 			-
 			<div class="player2-score">0</div>
+			<br>
 		</div>
 		<div class="player2-info">
 			<div class="player2-tag">Player 2</div><br>
@@ -36,7 +37,10 @@
 			</div>
 		</div>
 	</div>
-	<br><br><br>
+	<button class="ui-button resetButton" onclick="resetScore()">Reset Score</button>
+	<br><br>
+	<button class="ui-button swap" style="display: block; margin: auto; margin-top: -30px ;font-size: 24px">⇄</button>
+	<br>
 	<button class="ui-button editCurrentSet" style="display: block; margin: auto; font-size: 24px">Edit Current Set</button>
 </body>
 </html>

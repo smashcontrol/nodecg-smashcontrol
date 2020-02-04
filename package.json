@@ -1,6 +1,6 @@
 {
   "name": "nodecg-smashcontrol",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "",
   "homepage": "",
   "author": {
@@ -14,7 +14,8 @@
     "extension"
   ],
   "dependencies": {
-    "clone": "^2.1.1"
+    "clone": "^2.1.1",
+    "smashgg.js": "^4.1.10"
   },
   "keywords": [
     "",
@@ -28,15 +29,15 @@
         "title": "Current Set",
         "width": 9,
         "file": "player-info.html",
-        "workspace": "Set Info",
+        "workspace": "2. Set Info",
         "headerColor": "#525F78"
       },
       {
         "name": "stream-queue",
         "title": "Stream Queue",
         "width": 3,
-        "file": "upcoming-sets.html",
-        "workspace": "Set Info",
+        "file": "stream-queue.html",
+        "workspace": "2. Set Info",
         "headerColor": "#525F78"
       },
       {
@@ -44,34 +45,34 @@
         "title": "Search for Set",
         "width": 3,
         "file": "set-search.html",
-        "workspace": "Set Info",
+        "workspace": "2. Set Info",
         "headerColor": "#525F78"
       },
-	    {
+      {
         "name": "game-setup",
         "title": "Game Selector",
         "width": 3,
         "file": "game-setup.html",
-        "workspace": "Game Setup",
+        "workspace": "1. Game Setup",
         "headerColor": "#525F78"
       },
       {
         "name": "tourney-import",
         "title": "Tournament Import",
-        "width": 2,
-        "file": "game-setup.html",
-        "workspace": "Tournament Info",
+        "width": 3,
+        "file": "tourney-import.html",
+        "workspace": "3. Tournament Info",
         "headerColor": "#525F78"
       },
       {
         "name": "tourney-info",
         "title": "Tournament Info",
-        "width": 3,
-        "file": "game-setup.html",
-        "workspace": "Tournament Info",
+        "width": 5,
+        "file": "tourney-info.html",
+        "workspace": "3. Tournament Info",
         "headerColor": "#525F78"
       },
-	  {
+      {
         "name": "set-info",
         "title": "Edit Set Info",
         "width": 5,
@@ -87,9 +88,20 @@
             "type": "dismiss"
           }
         ]
+      },
+      {
+        "name": "settings",
+        "title": "Settings",
+        "width": 7,
+        "file": "settings.html",
+        "workspace": "4. Settings",
+        "headerColor": "#525F78"
       }
     ]
   },
   "repository": "git://github.com/smashcontrol/nodecg-smashcontrol.git",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
 }
