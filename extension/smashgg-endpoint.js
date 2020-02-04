@@ -75,12 +75,14 @@ async function tourneyImport(url){
 	init();
 	const Tournament = smashgg.Tournament;
 
-	// This checks if there are any other /'s in the path, like /ceo2016/events/melee-singles, we only need ceo2016
-	var additionalSlash = url.pathname.slice(1).indexOf('/');
-	if(additionalSlash !== -1){  // If there is an additional slash, trim the rest of the path to not include it
-		var shortSlug = url.pathname.slice(1, additionalSlash+1);
-	} else{
-		var shortSlug = url.pathname.slice(1);  // Trims the leading slash, pathname of /ceo2016 --> ceo2016
+	// This pulls out the slug for importing a tourney.
+	var slugSlice = url.pathname.slice(1).indexOf('/');
+	var shortSlug = url.pathname.slice(1, slugSlice+1);
+	if(shortSlug === "tournament"){
+		// Tournaments can be imported as https://smash.gg/{tourneyName} or https://smash.gg/tournament/{tourneyName}
+		// But can only be used in this function (conveniently, at least) as just tourneyName.
+		var newSlice = url.pathname.slice(1).indexOf('/', url.pathname.slice(1).indexOf('/')+1);
+		shortSlug = url.pathname.slice(slugSlice+2, newSlice+1);
 	}
 	try{
 		var tourn = await Tournament.get(shortSlug);
@@ -93,13 +95,8 @@ async function tourneyImport(url){
 			if(allEvents[phases[i].eventId] === undefined){
 				var event = await smashgg.Event.getById(phases[i].eventId);
 				allEvents[phases[i].eventId] = await event.getName();
-				var attendees = await pullAttendees(event);
-				attendees.forEach(function(data){
-					allAttendees[data[0]] = data[1]
-				});
 			}
 		}
-		attendeeRepl.value = allAttendees;
 		eventListRepl.value = allEvents;
 	} catch (err) {
 		return null;
@@ -107,54 +104,61 @@ async function tourneyImport(url){
 	return tourn;
 }
 
-/*  This is used as a workaround for the Stream Queue sets not having the tags in them until after a score is reported.
-	Making a dict of attendeeId's to attendeeTags is the best way to workaround this, because the sets show the
-	attendeeId.
- */
-async function pullAttendees(event){
-	var attendees = [];
-	var allAttendees = await event.getAttendees();
-	for(var i in allAttendees){
-		var playerId = allAttendees[i].id;
-		var playerTag = allAttendees[i].gamerTag;
-		if(!attendees.includes([playerId, playerTag])){
-			attendees.push([playerId, playerTag]);
-		}
-	}
-	return attendees;
-}
-
 async function loadStreamQueue(){
 	init();
 	var queue = [];
-	var attendees = attendeeRepl.value;
-	var streamQueue = await smashgg.StreamQueue.get(tourneyRepl.value.id);
+	var streamQueue = await getStreamQueue(tourneyRepl.value.slug);
 	for(var i in streamQueue){
 		var stream = streamQueue[i];
 		for(var j in stream.sets){
 			var set = stream.sets[j];
-			var player1Tag = getTag(set.player1.attendeeIds, attendees);
-			var player2Tag = getTag(set.player2.attendeeIds, attendees);
-			queue.push([stream.stream.streamName, player1Tag, player2Tag, set.getFullRoundText()]);
+			try{
+				var player1Tag = set.slots[0].entrant.name;
+			} catch {
+				var player1Tag = "TBD";
+			}
+			try{
+				var player2Tag = set.slots[1].entrant.name;
+			} catch {
+				var player2Tag = "TBD";
+			}
+			queue.push([stream.stream.streamName, player1Tag, player2Tag, set.fullRoundText]);
 		}
 	}
 	streamQueueRepl.value = queue;
 	return queue;
 }
 
-function getTag(idArray, attendees){
-	var tag;
-	if(idArray.length > 1){
-		for(var i in idArray.length){
-			tag += attendees[idArray[i]] + " & ";
-		}
-		tag = tag.slice(0,-3); //Remove the last " & "
-	} else{
-		tag = attendees[idArray[0]];
-	}
-	if(tag === undefined){
-		// in a majority of instances, an undefined tag means there's no opponent yet.
-		tag = "TBD"
-	}
-	return tag;
+async function getStreamQueue(tourneyName){
+	// smashgg.js shows null tags in the stream queue, so use a custom query.
+	var streamQueue = 'query StreamQueueOnTournament($tourneySlug: String!) {\n' +
+		'  tournament(slug: $tourneySlug) {\n' +
+		'    streamQueue {\n' +
+		'      stream {\n' +
+		'        streamName\n' +
+		'      }\n' +
+		'      sets {\n' +
+		'        fullRoundText\n' +
+		'      \tslots{\n' +
+		'          entrant{\n' +
+		'            name\n' +
+		'          }\n' +
+		'        }\n' +
+		'      }\n' +
+		'    }\n' +
+		'  }\n' +
+		'}\n'
+	console.log('Getting stream queue for tournament %s', tourneyName);
+	const streamQueueData = await fetch('https://api.smash.gg/gql/alpha', {
+		method: 'POST',
+		headers: {
+			'Authorization': 'Bearer ' + apiRepl.value,
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+		body: JSON.stringify({query: streamQueue, variables: {"tourneySlug": tourneyName}})
+	});
+	const result = await streamQueueData.json();
+	return result.data.tournament.streamQueue;
 }
+
