@@ -4,19 +4,21 @@ var playerDataArray,
 	playerDataInputsContainer,
 	gameSelection,
 	player1Character,
-	player2Character,
-	commentator1,
-	commentator2;
+	player2Character;
 
 
 var playerDataInputs = [
 	{id: 'player1tag', placeholder: 'Player 1 Tag'},
+	{id: 'player1pronouns', placeholder: 'Player 1 Pronouns'},
 	{id: 'player2tag', placeholder: 'Player 2 Tag'},
+	{id: 'player2pronouns', placeholder: 'Player 2 Pronouns'},
 	{id: 'bracketlocation', placeholder: 'Bracket Location'},
 	{id: 'player1character', placeholder: 'Player 1 Character'},
 	{id: 'player2character', placeholder: 'Player 2 Character'},
 	{id: 'commentator1', placeholder: 'Commentator 1'},
+	{id: 'commentator1pronouns', placeholder: 'Commentator 1 Pronouns'},
 	{id: 'commentator2', placeholder: 'Commentator 2'},
+	{id: 'commentator2pronouns', placeholder: 'Commentator 2 Pronouns'},
 	{id: 'game', placeholder: 'game'},
 ];
 
@@ -27,12 +29,16 @@ $(() => {
 	defaultSetObject = nodecg.Replicant('defaultSetObject');
 	defaultSetObject.value = {
 			player1tag: '',
+			player1pronouns: '',
 			player2tag: '',
+			player2pronouns: '',
 			bracketlocation: '',
 			player1character: 'Mario',
 			player2character: 'Mario',
 			commentator1: '',
+			commentator1pronouns: '',
 			commentator2: '',
+			commentator2pronouns: '',
 			game: 'ssb64',
 		};
 	gameSelection = nodecg.Replicant('gameSelection');
@@ -64,10 +70,14 @@ function loadInfo(){
 		var value = setDataCurrent[playerDataInputs[i].id];
 		switch(playerDataInputs[i].id){
 			case "player1tag":
+			case "player1pronouns":
 			case "player2tag":
+			case "player2pronouns":
 			case "bracketlocation":
 			case "commentator1":
+			case "commentator1pronouns":
 			case "commentator2":
+			case "commentator2pronouns":
 				// These fields just need a text input box.
 				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'></input>`);
 				break;
