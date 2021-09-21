@@ -123,6 +123,10 @@ $(() => {
 			playerDataArray.value['player1tag'] = playerDataArray.value['player2tag'];
 			playerDataArray.value['player2tag'] = temp;
 
+			temp = playerDataArray.value['player1pronouns'];
+			playerDataArray.value['player1pronouns'] = playerDataArray.value['player2pronouns'];
+			playerDataArray.value['player2pronouns'] = temp;
+
 			temp = playerDataArray.value['player1character'];
 			playerDataArray.value['player1character'] = playerDataArray.value['player2character'];
 			playerDataArray.value['player2character'] = temp;
