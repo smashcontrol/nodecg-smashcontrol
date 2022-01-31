@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "clone": "^2.1.1",
+    "node-fetch": "^2.6.7",
     "smashgg.js": "^4.1.10"
   },
   "keywords": [
@@ -37,14 +38,6 @@
         "title": "Stream Queue",
         "width": 3,
         "file": "stream-queue.html",
-        "workspace": "2. Set Info",
-        "headerColor": "#525F78"
-      },
-      {
-        "name": "set-search",
-        "title": "Search for Set",
-        "width": 3,
-        "file": "set-search.html",
         "workspace": "2. Set Info",
         "headerColor": "#525F78"
       },

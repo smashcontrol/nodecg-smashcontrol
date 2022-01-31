@@ -1,4 +1,5 @@
-const smashgg = require('smashgg.js');
+var fetch = require('node-fetch');
+const smashgg = require('./smashgg-helpers.js');
 
 var nodecg = require('./nodecg-api-context').get();
 var apiRepl = nodecg.Replicant("API-KEY");
@@ -6,10 +7,6 @@ var tourneyRepl = nodecg.Replicant("currentTournament");
 var eventListRepl = nodecg.Replicant("eventList");
 var streamQueueRepl = nodecg.Replicant("streamQueue");
 
-function init(){
-	// Load the API key into the smashgg.js package.
-	smashgg.initialize(apiRepl.value);
-}
 
 nodecg.listenFor('api-init', async (apiKey, ack) => {
 	// Checking the API key with smashgg.initalize() doesn't check if it's functional, just that it's 32-bit.
@@ -23,15 +20,8 @@ nodecg.listenFor('api-init', async (apiKey, ack) => {
 });
 
 nodecg.listenFor('url-import', async(url, ack) =>{
-	try {
-		var tourneyUrl = new URL(url);
-	} catch(err){
-		// Making the URL will error if it's not in a full URL format.
-		ack("Please enter a full URL, including the \'https://\'.", null);
-		return;
-	}
 	if(apiRepl.value){ // check for API key before doing anything
-		var imported = await tourneyImport(tourneyUrl);
+		var imported = await tourneyImport(url);
 		if(imported === null){
 			ack("Tournament not found.", null)
 		} else {
@@ -73,35 +63,13 @@ async function verify(apiKey){
 }
 
 async function tourneyImport(url){
-	init();
-	const Tournament = smashgg.Tournament;
-
-	// This pulls out the slug for importing a tourney.
-	var slugSlice = url.pathname.slice(1).indexOf('/');
-	var shortSlug = url.pathname.slice(1, slugSlice+1);
-	if(shortSlug === "tournament"){
-		// Tournaments can be imported as https://smash.gg/{tourneyName} or https://smash.gg/tournament/{tourneyName}
-		// But can only be used in this function (conveniently, at least) as just tourneyName.
-		var newSlice = url.pathname.slice(1).indexOf('/', url.pathname.slice(1).indexOf('/')+1);
-		shortSlug = url.pathname.slice(slugSlice+2, newSlice+1);
-	}
+	const shortSlug = smashgg.getTourneySlugFromURL(url);
 	try{
-		var tourn = await Tournament.get(shortSlug);
-		// shortSlug needs to be converted to the full value, /ceo2016 --> /tournament/ceo-2016
-		// This is set up before to be just the shortSlug to save on case checking.
-		var realSlug = tourn.getSlug();
-		tourn = await Tournament.get(realSlug);
-		var phases = await tourn.getPhases();
-		var allEvents = {};
-		for(var i=0; i < phases.length; i++){
-			// Pull the events from the phases. This might be able to be done easier.
-			if(allEvents[phases[i].eventId] === undefined){
-				var event = await smashgg.Event.getById(phases[i].eventId);
-				allEvents[phases[i].eventId] = await event.getName();
-			}
-		}
+		var tourn = await smashgg.getTournament(shortSlug);
+		var allEvents = await smashgg.getTournamentEvents(shortSlug);
 		eventListRepl.value = allEvents;
 	} catch (err) {
+		console.log(err);
 		// If no tourney can be found, just return null and finish.
 		return null;
 	}
@@ -109,9 +77,8 @@ async function tourneyImport(url){
 }
 
 async function loadStreamQueue(){
-	init();
 	var queue = [];
-	var streamQueue = await getStreamQueue(tourneyRepl.value.slug);
+	var streamQueue = await getStreamQueue(tourneyRepl.value.slug.split('/')[1]);
 	for(var i in streamQueue){
 		var stream = streamQueue[i];
 		for(var j in stream.sets){
@@ -136,7 +103,7 @@ async function loadStreamQueue(){
 	return queue;
 }
 
-async function getStreamQueue(tourneyName){
+async function getStreamQueue(shortSlug){
 	// smashgg.js shows null tags in the stream queue, so use a custom query to get all of the required info.
 	var streamQueue =
 		'query StreamQueueOnTournament($tourneySlug: String!) {\n' +
@@ -156,7 +123,7 @@ async function getStreamQueue(tourneyName){
 		'    }\n' +
 		'  }\n' +
 		'}\n'
-	console.log('Getting stream queue for tournament %s', tourneyName);
+	console.log('Getting stream queue for tournament %s', shortSlug);
 	const streamQueueData = await fetch('https://api.smash.gg/gql/alpha', {
 		method: 'POST',
 		headers: {
@@ -164,9 +131,14 @@ async function getStreamQueue(tourneyName){
 			'Content-Type': 'application/json',
 			'Accept': 'application/json',
 		},
-		body: JSON.stringify({query: streamQueue, variables: {"tourneySlug": tourneyName}})
+		body: JSON.stringify({query: streamQueue, variables: {"tourneySlug": shortSlug}})
 	});
 	const result = await streamQueueData.json();
-	return result.data.tournament.streamQueue;
+	try{
+		return result.data.tournament.streamQueue;
+	} catch (err) {
+		return [];
+	}
+	
 }
 

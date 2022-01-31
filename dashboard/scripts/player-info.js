@@ -91,8 +91,22 @@ $(() => {
 		player1pronouns.text(setData.player1pronouns);
 		player2tag.text(setData.player2tag);
 		player2pronouns.text(setData.player2pronouns);
-		var p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
-		var p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
+		var p1char = setData.player1character;
+		var p2char = setData.player2character;
+		switch(setData.player1character){
+			case "Zombie":
+			case "Enderman":
+			case "Alex":
+				p1char = "Steve";
+		}
+		switch(setData.player2character){
+			case "Zombie":
+			case "Enderman":
+			case "Alex":
+				p2char = "Steve";
+		}
+		var p1ch = "images/" + setData.game + "/" + p1char + ".png";
+		var p2ch = "images/" + setData.game + "/" + p2char + ".png";
 		if(setData.game === "ssb64"){
 			// 64's character icons are a different aspect ratio
 			$('.character').children().attr({"height": 60, "width": 48});

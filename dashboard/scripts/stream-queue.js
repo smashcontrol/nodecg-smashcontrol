@@ -14,7 +14,7 @@ function importSet(i){
 }
 
 function populatePanel(){
-	nodecg.sendMessage('queue-import', event,(error, result) => {
+	nodecg.sendMessage('queue-import', (error, result) => {
 		if (error){
 			// Only error would be "stream queue empty".
 			for(var i=0; i < 8; i++){
