@@ -66,7 +66,9 @@ $(function(){
 $(() => {
 	updateScores();
 	var player1tag = $('.player1-tag');
+	var player1pronouns = $('.player1-pronouns');
 	var player2tag = $('.player2-tag');
+	var player2pronouns = $('.player2-pronouns');
 	var player1character = $('.player1-character');
 	var player2character = $('.player2-character');
 	var bracketlocation = $('.bracket-location');
@@ -86,9 +88,25 @@ $(() => {
 	function updateFields(setData){
 		// Update the in-panel information based on the result from updating the setInfoDialog panel.
 		player1tag.text(setData.player1tag);
+		player1pronouns.text(setData.player1pronouns);
 		player2tag.text(setData.player2tag);
-		var p1ch = "images/" + setData.game + "/" + setData.player1character + ".png";
-		var p2ch = "images/" + setData.game + "/" + setData.player2character + ".png";
+		player2pronouns.text(setData.player2pronouns);
+		var p1char = setData.player1character;
+		var p2char = setData.player2character;
+		switch(setData.player1character){
+			case "Zombie":
+			case "Enderman":
+			case "Alex":
+				p1char = "Steve";
+		}
+		switch(setData.player2character){
+			case "Zombie":
+			case "Enderman":
+			case "Alex":
+				p2char = "Steve";
+		}
+		var p1ch = "images/" + setData.game + "/" + p1char + ".png";
+		var p2ch = "images/" + setData.game + "/" + p2char + ".png";
 		if(setData.game === "ssb64"){
 			// 64's character icons are a different aspect ratio
 			$('.character').children().attr({"height": 60, "width": 48});
@@ -118,6 +136,10 @@ $(() => {
 			temp = playerDataArray.value['player1tag'];
 			playerDataArray.value['player1tag'] = playerDataArray.value['player2tag'];
 			playerDataArray.value['player2tag'] = temp;
+
+			temp = playerDataArray.value['player1pronouns'];
+			playerDataArray.value['player1pronouns'] = playerDataArray.value['player2pronouns'];
+			playerDataArray.value['player2pronouns'] = temp;
 
 			temp = playerDataArray.value['player1character'];
 			playerDataArray.value['player1character'] = playerDataArray.value['player2character'];

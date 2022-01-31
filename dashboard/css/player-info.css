@@ -8,7 +8,9 @@
 .player1-info{
 	float: left;
 	width: calc(100%/3);
-
+}
+.player1-pronouns{
+	font-size:28px;
 }
 .score{
 	display: inline-block;
@@ -25,7 +27,9 @@
 .player2-info{
 	width: calc(100%/3);
 	float: right;
-
+}
+.player2-pronouns{
+	font-size:28px;
 }
 .score-button{
 	font-size: 18pt;
@@ -38,9 +42,9 @@
 	margin-bottom: 10%;
 }
 .ui-button.resetButton{
-	display: block; 
-	margin: auto; 
-	margin-top: -120px; 
+	display: block;
+	margin: auto;
+	margin-top: -120px;
 	font-size: 18px;
 	background: #df5436;
 }

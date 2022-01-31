@@ -53,7 +53,7 @@
 * `apiRepl` *[`string`]* - A user's API key to use with smash.gg integration.
 * `tourneyRepl` *[`Object`]* - A JSON response containing all of a tournament's information.
 * `eventListRepl` *[`Array[String]`]* - A list of all the events in a given tournament.
-* `gameSelection` *[`string`]* - The game to load assets for (refer to [playerDataArray](#playerDataArray).
+* `gameSelection` *[`string`]* - The game to load assets for (refer to [playerDataArray](#playerDataArray)).
 * `player1Score` *[`Integer`]* - Player 1's score in a set.
 * `player2Score` *[`Integer`]* - Player 2's score in a set.
 

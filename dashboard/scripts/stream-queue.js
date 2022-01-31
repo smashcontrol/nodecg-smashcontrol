@@ -6,13 +6,15 @@ function importSet(i){
 		// Update playerDataArray to whatever the i'th value of streamQueueArray is
 		populatePanel();
 		playerDataArray.value.player1tag = streamQueueArray.value[i][1];
+		//playerDataArray.value.player1pronouns = streamQueueArray.value[i][1];
 		playerDataArray.value.player2tag = streamQueueArray.value[i][2];
+		//playerDataArray.value.player2pronouns = streamQueueArray.value[i][2];
 		playerDataArray.value.bracketlocation = streamQueueArray.value[i][3];
 	});
 }
 
 function populatePanel(){
-	nodecg.sendMessage('queue-import', event,(error, result) => {
+	nodecg.sendMessage('queue-import', (error, result) => {
 		if (error){
 			// Only error would be "stream queue empty".
 			for(var i=0; i < 8; i++){

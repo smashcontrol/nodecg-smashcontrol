@@ -15,7 +15,7 @@ $(() => {
 		eventList.empty();
 		NodeCG.waitForReplicants(eventListRepl).then(() => {
 			for (var event in eventListRepl.value) {
-				eventList.append(eventListRepl.value[event], "<br>");
+				eventList.append(eventListRepl.value[event].name, "<br>");
 			}
 		});
 	}
