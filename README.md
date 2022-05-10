@@ -1,4 +1,4 @@
-nodecg-smashcontrol v0.9.0
+nodecg-smashcontrol v0.9.2
 ----
 
 *This is a bundle for [NodeCG](http://nodecg.com/). It is required for use of this application.*
@@ -38,7 +38,6 @@ Future features include:
 #### Credits
 This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).    
 
-This program utilizes [smashgg.js](https://github.com/BrandonCookeDev/smashgg.js), developed by BrandonCookeDev.
 
 #### Contribution/Issues
 The `master` branch will always contain the most recent, stable version. Other branches may contain unstable or unfinished
