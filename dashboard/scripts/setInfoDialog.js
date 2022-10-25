@@ -10,8 +10,10 @@ var playerDataArray,
 var playerDataInputs = [
 	{id: 'player1tag', placeholder: 'Player 1 Tag'},
 	{id: 'player1pronouns', placeholder: 'Player 1 Pronouns'},
+	{id: 'player1port', placeholder: 'Player 1 Port'},
 	{id: 'player2tag', placeholder: 'Player 2 Tag'},
 	{id: 'player2pronouns', placeholder: 'Player 2 Pronouns'},
+	{id: 'player2port', placeholder: 'Player 2 Port'},
 	{id: 'bracketlocation', placeholder: 'Bracket Location'},
 	{id: 'player1character', placeholder: 'Player 1 Character'},
 	{id: 'player2character', placeholder: 'Player 2 Character'},
@@ -30,8 +32,10 @@ $(() => {
 	defaultSetObject.value = {
 			player1tag: '',
 			player1pronouns: '',
+			player1port: 1,
 			player2tag: '',
 			player2pronouns: '',
+			player2port: 1,
 			bracketlocation: '',
 			player1character: 'Mario',
 			player2character: 'Mario',
@@ -88,7 +92,10 @@ function loadInfo(){
 				var game = gameSelection.value;
 				var input = constructCharacterDropdown(game, playerDataInputs[i].id);
 				break;
-
+			case "player1port":
+			case "player2port":
+				var input = $(`<select class='${playerDataInputs[i].id}'><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select>`);
+				break;
 			default:
 				// Anything not covered by these cases will be printed to the console and not generated.
 				console.log("default", playerDataInputs[i].id);
