@@ -105,6 +105,10 @@ $(() => {
 			case "Alex":
 				p2char = "Steve";
 		}
+		if(setData.game === "ssb64" && (p1char.includes("REMIX") || p2char.includes("REMIX")) ){
+			p1char = p1char.split("[REMIX] ").at(-1);
+			p2char = p2char.split("[REMIX] ").at(-1);
+		}
 		var p1ch = "images/" + setData.game + "/" + p1char + ".png";
 		var p2ch = "images/" + setData.game + "/" + p2char + ".png";
 		if(setData.game === "ssb64"){
