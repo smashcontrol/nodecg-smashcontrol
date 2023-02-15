@@ -20,7 +20,6 @@ After these are installed, run the following in the directory in which you want 
 npm install bower -g
 npm install nodecg-cli -g
 nodecg setup
-npm install smashgg.js
 nodecg install smashcontrol/nodecg-smashcontrol
 nodecg start
 ```

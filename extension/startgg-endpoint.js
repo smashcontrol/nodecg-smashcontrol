@@ -1,5 +1,5 @@
 var fetch = require('node-fetch');
-const smashgg = require('./smashgg-helpers.js');
+const startgg = require('./startgg-helpers.js');
 
 var nodecg = require('./nodecg-api-context').get();
 var apiRepl = nodecg.Replicant("API-KEY");
@@ -9,7 +9,7 @@ var streamQueueRepl = nodecg.Replicant("streamQueue");
 
 
 nodecg.listenFor('api-init', async (apiKey, ack) => {
-	// Checking the API key with smashgg.initalize() doesn't check if it's functional, just that it's 32-bit.
+	// Checking the API key with startgg.initalize() doesn't check if it's functional, just that it's 32-bit.
 	var message = await verify(apiKey);
 	if(message === false){
 		ack('API key invalid.', null);
@@ -49,7 +49,7 @@ async function verify(apiKey){
 		'    name\n' +
 		'  }\n' +
 		'}';
-	const testData = await fetch('https://api.smash.gg/gql/alpha', {
+	const testData = await fetch('https://api.start.gg/gql/alpha', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer ' + apiKey,
@@ -63,10 +63,10 @@ async function verify(apiKey){
 }
 
 async function tourneyImport(url){
-	const shortSlug = smashgg.getTourneySlugFromURL(url);
+	const shortSlug = startgg.getTourneySlugFromURL(url);
 	try{
-		var tourn = await smashgg.getTournament(shortSlug);
-		var allEvents = await smashgg.getTournamentEvents(shortSlug);
+		var tourn = await startgg.getTournament(shortSlug);
+		var allEvents = await startgg.getTournamentEvents(shortSlug);
 		eventListRepl.value = allEvents;
 	} catch (err) {
 		console.log(err);
@@ -86,17 +86,29 @@ async function loadStreamQueue(){
 			try{
 				// The "tag" will be null if there's nobody in the slot yet, so check it and put in TBD if so.
 				var player1Tag = set.slots[0].entrant.name;
+				try{
+					var player1pronouns = set.slots[0].entrant.participants[0].player.user.genderPronoun;
+				}
+				catch{
+					var player1pronouns = '';
+				}
 			} catch {
 				var player1Tag = "TBD";
 			}
 			try{
 				var player2Tag = set.slots[1].entrant.name;
+				try{
+					var player2pronouns = set.slots[1].entrant.participants[0].player.user.genderPronoun;
+				}
+				catch{
+					var player2pronouns = '';
+				}
 			} catch {
 				var player2Tag = "TBD";
 			}
 			// set.fullRoundText returns things like "Winner's Semi-Final" in pools,
 			// TODO possibly make this more accurate based on pool status?
-			queue.push([stream.stream.streamName, player1Tag, player2Tag, set.fullRoundText]);
+			queue.push([stream.stream.streamName, player1Tag, player1pronouns, player2Tag, player2pronouns, set.fullRoundText]);
 		}
 	}
 	streamQueueRepl.value = queue;
@@ -104,27 +116,33 @@ async function loadStreamQueue(){
 }
 
 async function getStreamQueue(shortSlug){
-	// smashgg.js shows null tags in the stream queue, so use a custom query to get all of the required info.
 	var streamQueue =
-		'query StreamQueueOnTournament($tourneySlug: String!) {\n' +
-		'  tournament(slug: $tourneySlug) {\n' +
-		'    streamQueue {\n' +
-		'      stream {\n' +
-		'        streamName\n' +
-		'      }\n' +
-		'      sets {\n' +
-		'        fullRoundText\n' +
-		'      \tslots{\n' +
-		'          entrant{\n' +
-		'            name\n' +
-		'          }\n' +
-		'        }\n' +
-		'      }\n' +
-		'    }\n' +
-		'  }\n' +
-		'}\n'
+	`query StreamQueueOnTournament($tourneySlug: String!) {
+		tournament(slug: $tourneySlug) {
+		  streamQueue {
+			stream {
+			  streamName
+			}
+			sets {
+			  fullRoundText
+			slots{
+				entrant{
+				  name
+				  participants{
+					player{
+					  user{
+						genderPronoun
+					  }
+					}
+				  }
+				}
+			  }
+			}
+		  }
+		}
+	  }`
 	console.log('Getting stream queue for tournament %s', shortSlug);
-	const streamQueueData = await fetch('https://api.smash.gg/gql/alpha', {
+	const streamQueueData = await fetch('https://api.start.gg/gql/alpha', {
 		method: 'POST',
 		headers: {
 			'Authorization': 'Bearer ' + apiRepl.value,

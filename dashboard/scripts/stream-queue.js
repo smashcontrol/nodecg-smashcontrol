@@ -5,11 +5,12 @@ function importSet(i){
 	NodeCG.waitForReplicants(playerDataArray, streamQueueArray).then(() => {
 		// Update playerDataArray to whatever the i'th value of streamQueueArray is
 		populatePanel();
+		console.log(streamQueueArray.value[i]);
 		playerDataArray.value.player1tag = streamQueueArray.value[i][1];
-		//playerDataArray.value.player1pronouns = streamQueueArray.value[i][1];
-		playerDataArray.value.player2tag = streamQueueArray.value[i][2];
-		//playerDataArray.value.player2pronouns = streamQueueArray.value[i][2];
-		playerDataArray.value.bracketlocation = streamQueueArray.value[i][3];
+		playerDataArray.value.player1pronouns = streamQueueArray.value[i][2];
+		playerDataArray.value.player2tag = streamQueueArray.value[i][3];
+		playerDataArray.value.player2pronouns = streamQueueArray.value[i][4];
+		playerDataArray.value.bracketlocation = streamQueueArray.value[i][5];
 	});
 }
 
@@ -37,7 +38,7 @@ function populatePanel(){
 							'font-weight': 'bold',
 							'font-style': 'italic'
 						});
-						$('.player-info_' + i).text(streamQueueArray.value[i][1] + " vs. " + streamQueueArray.value[i][2] + " | " + streamQueueArray.value[i][3]);
+						$('.player-info_' + i).text(streamQueueArray.value[i][1] + " vs. " + streamQueueArray.value[i][3] + " | " + streamQueueArray.value[i][5]);
 						$('.set-to-pick_' + i).append("<button class=\"ui-button import-set_" + i + "\" style=\"color: green; float: right\" onclick=\"importSet(" + i + ")\">Import</button><br><br>");
 					} catch (err) {
 						// This will error if the stream queue has less than 8 sets in it.
