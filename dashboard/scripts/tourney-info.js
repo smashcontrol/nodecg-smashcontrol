@@ -3,7 +3,9 @@ $(() => {
 	var eventListRepl = nodecg.Replicant("eventList");
 	NodeCG.waitForReplicants(tourneyRepl).then(() => {
 		if(tourneyRepl.value == ""){
-			$('.tourney-info').empty()
+			$('.tourney-name').empty();
+			$('.event-list').empty();
+			$('.disconnect').empty();
 		}
 	})
 	var tourneyName = $('.tourney-name');
