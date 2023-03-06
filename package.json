@@ -88,6 +88,14 @@
         "file": "settings.html",
         "workspace": "4. Settings",
         "headerColor": "#525F78"
+      },
+      {
+        "name": "top8",
+        "title": "Top 8",
+        "width": 10,
+        "file": "top8.html",
+        "workspace": "5. Top 8 Generator",
+        "headerColor": "#525F78"
       }
     ]
   },
