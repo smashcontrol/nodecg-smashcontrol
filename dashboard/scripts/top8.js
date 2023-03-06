@@ -116,7 +116,7 @@ function loadTop8(refresh=false){
             case "7atag":
             case "7btag":
                 refresh = init_refresh
-                var input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}' placeholder='${top8Inputs[i].placeholder}'></input>`);
+                var input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}'></input>`);
                 break;
 			default:
                 var game = gameSelection.value;

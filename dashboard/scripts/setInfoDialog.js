@@ -86,7 +86,7 @@ function loadInfo(){
 			case "commentator2":
 			case "commentator2pronouns":
 				// These fields just need a text input box.
-				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'></input>`);
+				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}''></input>`);
 				break;
 
 			case "player1character":
@@ -105,7 +105,6 @@ function loadInfo(){
 
 		}
 		input.val(value);
-		console.log(playerDataInputs[i].grid);
 		$(`${playerDataInputs[i].grid}`).append(playerDataInputs[i].placeholder + ":<br>");
 		$(`${playerDataInputs[i].grid}`).append(input);
 		$(`${playerDataInputs[i].grid}`).append("<br>");
