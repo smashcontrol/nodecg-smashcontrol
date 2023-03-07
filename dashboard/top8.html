@@ -3,7 +3,8 @@
     <head>
         <script src="../bower_components/jquery/dist/jquery.js"></script>	
         <script src="../node_modules/clone/clone.js"></script>
-        <script src="scripts/top8.js" ></script>
+        <script type="module" src="scripts/top8.js" ></script>
+        <script type="module" src="scripts/costumes.js" ></script>
         <link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-theme/jquery-ui.css"/>
         <style>
             .grid-container{
@@ -23,6 +24,12 @@
                 width: 150px;
                 height: 50px;
             }
+            select{
+                width: 50%;
+            }
+            input{
+                width: 75%;
+            }
         </style>
     </head>
     <body>
@@ -37,8 +44,8 @@
 			<div class="place_7b"></div>
 		</div>
         <div class="buttons">
-            <button class="ui-button" onclick="saveInfo()">Save Info</button>
-            <button class="ui-button" onclick="loadTop8(true)">Refresh</button>
+            <button class="ui-button save">Save Info</button>
+            <button class="ui-button refresh">Refresh</button>
         </div>
         
     </body>

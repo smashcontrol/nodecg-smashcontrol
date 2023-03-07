@@ -1,40 +1,49 @@
+import {ssb64} from './costumes.js'
+
 var top8Array,
     top8Data,
     defaultTop8Array,
-    top8InputsContainer,
     gameSelection;
 
 var top8Inputs = [
 	{id: '1tag', placeholder: '1st Place Tag', grid: '.place_1'},
 	{id: '1main', placeholder: '1st Place Main', grid: '.place_1'},
+	{id: '1costume', placeholder: 'Costume', grid: '.place_1'},
 	{id: '1secondary', placeholder: '1st Place Secondary', grid: '.place_1'},
 
 	{id: '2tag', placeholder: '2nd Place Tag', grid: '.place_2'},
 	{id: '2main', placeholder: '2nd Place Main', grid: '.place_2'},
+	{id: '2costume', placeholder: 'Costume', grid: '.place_2'},
 	{id: '2secondary', placeholder: '2nd Place Secondary', grid: '.place_2'},
 
     {id: '3tag', placeholder: '3rd Place Tag', grid: '.place_3'},
 	{id: '3main', placeholder: '3rd Place Main', grid: '.place_3'},
+	{id: '3costume', placeholder: 'Costume', grid: '.place_3'},
 	{id: '3secondary', placeholder: '3rd Place Secondary', grid: '.place_3'},
 
     {id: '4tag', placeholder: '4th Place Tag', grid: '.place_4'},
 	{id: '4main', placeholder: '4th Place Main', grid: '.place_4'},
+	{id: '4costume', placeholder: 'Costume', grid: '.place_4'},
 	{id: '4asecondary', placeholder: '4th Place Secondary', grid: '.place_4'},
 
     {id: '5atag', placeholder: '5th Place Tag', grid: '.place_5a'},
 	{id: '5amain', placeholder: '5th Place Main', grid: '.place_5a'},
+	{id: '5acostume', placeholder: 'Costume', grid: '.place_5a'},
 	{id: '5asecondary', placeholder: '5th Place Secondary', grid: '.place_5a'},
 
     {id: '5btag', placeholder: '5th Place Tag', grid: '.place_5b'},
 	{id: '5bmain', placeholder: '5th Place Main', grid: '.place_5b'},
+	{id: '5bcostume', placeholder: 'Costume', grid: '.place_5b'},
 	{id: '5bsecondary', placeholder: '5th Place Secondary', grid: '.place_5b'},
 
     {id: '7atag', placeholder: '7th Place Tag', grid: '.place_7a'},
 	{id: '7amain', placeholder: '7th Place Main', grid: '.place_7a'},
+	{id: '7acostume', placeholder: 'Costume', grid: '.place_7a'},
 	{id: '7asecondary', placeholder: '7th Place Secondary', grid: '.place_7a'},
 
     {id: '7btag', placeholder: '7th Place Tag', grid: '.place_7b'},
 	{id: '7bmain', placeholder: '7th Place Main', grid: '.place_7b'},
+	{id: '7bcostume', placeholder: 'Costume', grid: '.place_7b'},
 	{id: '7bsecondary', placeholder: '7th Place Secondary', grid: '.place_7b'},
 ];
 
@@ -47,43 +56,61 @@ $(() => {
     defaultTop8Array.value = {
         "1tag": '',
         "1main": '',
+		"1costume": '',
         "1secondary": '',
 
         "2tag": '',
         "2main": '',
+		"2costume": '',
         "2secondary": '',
 
         "3tag": '',
         "3main": '',
+		"3costume": '',
         "3secondary": '',
 
         "4tag": '',
         "4main": '',
+		"4costume": '',
         "4secondary": '',
 
         "5atag": '',
         "5amain": '',
+		"5acostume": '',
         "5asecondary": '',
 
         "5btag": '',
         "5bmain": '',
+		"5bcostume": '',
         "5bsecondary": '',
 
         "7atag": '',
         "7amain": '',
+		"7acostume": '',
         "7asecondary": '',
 
         "7btag": '',
         "7bmain": '',
+		"7bcostume": '',
         "7bsecondary": '',
     };
     gameSelection = nodecg.Replicant('gameSelection');
     NodeCG.waitForReplicants(defaultTop8Array, gameSelection).then(() => {
         loadTop8();
     })
-    
-
+	
+	$('.save').on("click", function() {
+		NodeCG.waitForReplicants(top8Array).then(() => {
+			saveInfo();
+		})
+	})
+	$('.refresh').on("click", function() {
+		NodeCG.waitForReplicants(defaultTop8Array, gameSelection).then(() => {
+			loadTop8(true);
+		})
+	})
 });
+
 
 function saveInfo(){
 	// Save the result of the dialog to a replicant, to access later.
@@ -98,32 +125,28 @@ function saveInfo(){
 }
 
 function loadTop8(refresh=false){
-    init_refresh = refresh;
+    var init_refresh = refresh;
     top8Data = clone(defaultTop8Array.value);
+	var game = gameSelection.value;
     if(top8Array.value != undefined && top8Array.value != ''){
         top8Data = top8Array.value;
-    }
-    
+	}
+	var current_main = '';
     for (var i=0; i < top8Inputs.length; i++){
+		var input;
 		var value = top8Data[top8Inputs[i].id];
-		switch(top8Inputs[i].id){
-			case "1tag":
-            case "2tag":
-            case "3tag":
-            case "4tag":
-            case "5atag":
-            case "5btag":
-            case "7atag":
-            case "7btag":
-                refresh = init_refresh
-                var input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}'></input>`);
-                break;
-			default:
-                var game = gameSelection.value;
-				var input = constructCharacterDropdown(game, top8Inputs[i].id);
-				break;
-				
-
+		if(top8Inputs[i].id.includes("tag")){
+			refresh = init_refresh
+			input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}'></input>`);
+		}
+		else if(top8Inputs[i].id.includes("main") || top8Inputs[i].id.includes("secondary")){
+			if(top8Inputs[i].id.includes("main")){
+				current_main = value;
+			}
+			input = constructCharacterDropdown(game, top8Inputs[i].id, top8Inputs[i].id.includes("main"));
+		}
+		else{
+			input = getCostume(current_main, game, top8Inputs[i].id);
 		}
         input.val(value);
         if(refresh){
@@ -136,10 +159,19 @@ function loadTop8(refresh=false){
     }
 }
 
-function constructCharacterDropdown(game, id_tag){
+function constructCharacterDropdown(game, id_tag, main){
 	// Generate HTML for a dropdown of characters to put in the dialog box.
 	var characters =  getCharacters(game);
-	var index = $('<select />').attr("class", id_tag);
+	var index;
+	if (main){
+		index = $('<select />').attr("class", id_tag);
+		index.on("change", function (){
+			getCostume($(this).val(), game, id_tag.split("main")[0]+"costume");
+		});
+	} else {
+		index = $('<select />').attr("class", id_tag);
+	}
+	
     var properName;
 	characters.forEach(function(item){
         if(item === ""){
@@ -156,6 +188,27 @@ function constructCharacterDropdown(game, id_tag){
 	return index;
 }
 
+function getCostume(character, game, id_tag){
+	var costumelist;
+	var selector = $(`<select />`).attr("class", id_tag);
+	switch(game){
+		case "ssb64":
+			costumelist = ssb64;
+			character = character.split("[REMIX] ").at(-1)
+			break;
+		default:
+			break;
+	}
+	if(character === ''){
+		$(`.${id_tag}`).replaceWith(selector);
+		return selector;
+	}
+	costumelist[character].forEach(function (costume) {
+		$('<option />', {value: costume, text: costume}).appendTo(selector);
+	})
+	$(`.${id_tag}`).replaceWith(selector);
+	return selector;
+};
 
 function getCharacters(game){
 	// Return a list of all of the character's names per game. Slices are to take out the cut characters.
