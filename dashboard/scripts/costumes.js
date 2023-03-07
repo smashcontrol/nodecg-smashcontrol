@@ -28,3 +28,32 @@ export let ssb64 = {
     "Yoshi": ["Default", "Black", "Blue", "Dark Blue", "Pink", "Red", "White", "Yellow"],
     "Young Link": ["Default", "Blue", "Cyan", "Dark", "Pink Hair", "Red"],
 };
+
+export let ssbm = {
+    'Bowser': ['Default', 'Black', 'Blue', 'Red'], 
+    'DonkeyKong': ['Default', 'Black', 'Blue', 'Green', 'Red'], 
+    'DrMario': ['Default', 'Black', 'Blue', 'Green', 'Red'], 
+    'Falco': ['Default', 'Green', 'Red', 'White'], 
+    'Falcon': ['Default', 'Black', 'Blood', 'Blue', 'Green', 'Pink'], 
+    'Fox': ['Default', 'Blue', 'Green', 'Orange'], 
+    'Ganondorf': ['Default', 'Blue', 'Green', 'Purple', 'Red'], 
+    'IceClimbers': ['Default', 'Green', 'Nana Orange', 'Nana Purple'], 
+    'Jigglypuff': ['Default', 'Blue', 'Crown', 'Green', 'Red'], 
+    'Kirby': ['Default', 'Blue', 'Green', 'Red', 'White', 'Yellow'], 
+    'Link': ['Default', 'Black', 'Blue', 'Red', 'White'], 
+    'Luigi': ['Default', 'Blue', 'Fire', 'Pink'], 
+    'Mario': ['Default', 'Black', 'Blue', 'Green', 'Wario'], 
+    'Marth': ['Default', 'Black', 'Green', 'Red', 'White'], 
+    'Mewtwo': ['Default', 'Blue', 'Green', 'Red'], 
+    'MrGameAndWatch': ['Default', 'Blue', 'Green', 'Red'], 
+    'Ness': ['Default', 'Blue', 'Green', 'Yellow'], 
+    'Peach': ['Default', 'Blue', 'Daisy', 'Green', 'White'], 
+    'Pichu': ['Default', 'Blue', 'Green', 'Red'], 
+    'Pikachu': ['Default', 'Blue', 'Green', 'Red'], 
+    'Roy': ['Default', 'Blue', 'Green', 'Orange', 'Red'], 
+    'Samus': ['Default', 'Black', 'Green', 'Pink', 'Purple'], 
+    'Sheik': ['Default', 'Black', 'Blue', 'Green', 'Red'], 
+    'Yoshi': ['Default', 'Cyan', 'Dark Blue', 'Pink', 'Red', 'Yellow'], 
+    'YoungLink': ['Default', 'Black', 'Blue', 'Red', 'White'], 
+    'Zelda': ['Default', 'Blue', 'Green', 'Red', 'White']
+};

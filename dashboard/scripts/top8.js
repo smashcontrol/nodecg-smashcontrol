@@ -1,4 +1,4 @@
-import {ssb64} from './costumes.js'
+import {ssb64, ssbm} from './costumes.js'
 
 var top8Array,
     top8Data,
@@ -209,10 +209,13 @@ function getCostume(character, game, id_tag){
 			costumelist = ssb64;
 			character = character.split("[REMIX] ").at(-1)
 			break;
+		case "ssbm":
+			costumelist = ssbm;
+			break;
 		default:
 			break;
 	}
-	if(character === ''){
+	if(character === '' || !costumelist.hasOwnProperty(character)){
 		$(`.${id_tag}`).replaceWith(selector);
 		return selector;
 	}
