@@ -50,6 +50,7 @@ var top8Inputs = [
 	{id: 'tourneydate', placeholder: 'Tournament Date', grid: '.tournament'},
 	{id: 'tourneyentrants', placeholder: 'Tournament Entrant #', grid: '.tournament'},
 	{id: 'tourneylocation', placeholder: 'Tournament Location', grid: '.tournament'},
+	{id: 'game'},
 ];
 
 
@@ -103,6 +104,7 @@ $(() => {
 		"tourneydate": '',
 		"tourneyentrants": '',
 		"tourneylocation": '',
+		"game": ssb64,
     };
     gameSelection = nodecg.Replicant('gameSelection');
     NodeCG.waitForReplicants(defaultTop8Array, gameSelection).then(() => {
@@ -138,11 +140,12 @@ function loadTop8(refresh=false){
     var init_refresh = refresh;
     top8Data = clone(defaultTop8Array.value);
 	var game = gameSelection.value;
+	top8Data["game"] = game;
     if(top8Array.value != undefined && top8Array.value != ''){
         top8Data = top8Array.value;
 	}
 	var current_main = '';
-    for (var i=0; i < top8Inputs.length; i++){
+    for (var i=0; i < top8Inputs.length-1; i++){
 		var input;
 		var value = top8Data[top8Inputs[i].id];
 		if(top8Inputs[i].id.includes("tag") || top8Inputs[i].id.includes("tourney")){
