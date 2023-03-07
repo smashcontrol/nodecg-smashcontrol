@@ -163,7 +163,6 @@ function loadTop8(refresh=false){
             $(`${top8Inputs[i].grid}`).empty();
             refresh = false;
         }
-		console.log(top8Inputs[i]);
 		$(`${top8Inputs[i].grid}`).append(top8Inputs[i].placeholder + ":<br>");
 		$(`${top8Inputs[i].grid}`).append(input);
 		$(`${top8Inputs[i].grid}`).append("<br>");
