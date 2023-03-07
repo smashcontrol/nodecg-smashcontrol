@@ -45,6 +45,11 @@ var top8Inputs = [
 	{id: '7bmain', placeholder: '7th Place Main', grid: '.place_7b'},
 	{id: '7bcostume', placeholder: 'Costume', grid: '.place_7b'},
 	{id: '7bsecondary', placeholder: '7th Place Secondary', grid: '.place_7b'},
+
+	{id: 'tourneyname', placeholder: 'Tournament Name', grid: '.tournament'},
+	{id: 'tourneydate', placeholder: 'Tournament Date', grid: '.tournament'},
+	{id: 'tourneyentrants', placeholder: 'Tournament Entrant #', grid: '.tournament'},
+	{id: 'tourneylocation', placeholder: 'Tournament Location', grid: '.tournament'},
 ];
 
 
@@ -93,6 +98,11 @@ $(() => {
         "7bmain": '',
 		"7bcostume": '',
         "7bsecondary": '',
+
+		"tourneyname": '',
+		"tourneydate": '',
+		"tourneyentrants": '',
+		"tourneylocation": '',
     };
     gameSelection = nodecg.Replicant('gameSelection');
     NodeCG.waitForReplicants(defaultTop8Array, gameSelection).then(() => {
@@ -135,7 +145,7 @@ function loadTop8(refresh=false){
     for (var i=0; i < top8Inputs.length; i++){
 		var input;
 		var value = top8Data[top8Inputs[i].id];
-		if(top8Inputs[i].id.includes("tag")){
+		if(top8Inputs[i].id.includes("tag") || top8Inputs[i].id.includes("tourney")){
 			refresh = init_refresh
 			input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}'></input>`);
 		}
@@ -145,7 +155,7 @@ function loadTop8(refresh=false){
 			}
 			input = constructCharacterDropdown(game, top8Inputs[i].id, top8Inputs[i].id.includes("main"));
 		}
-		else{
+		else if(top8Inputs[i].id.includes("costume")){
 			input = getCostume(current_main, game, top8Inputs[i].id);
 		}
         input.val(value);
@@ -153,6 +163,7 @@ function loadTop8(refresh=false){
             $(`${top8Inputs[i].grid}`).empty();
             refresh = false;
         }
+		console.log(top8Inputs[i]);
 		$(`${top8Inputs[i].grid}`).append(top8Inputs[i].placeholder + ":<br>");
 		$(`${top8Inputs[i].grid}`).append(input);
 		$(`${top8Inputs[i].grid}`).append("<br>");
