@@ -11,7 +11,8 @@ $(() => {
 		"ssbb" : "Super Smash Bros. Brawl",
 		"ssbpm" : "Project M",
 		"ssb4" : "Super Smash Bros. for Wii U",
-		"ssbult" : "Super Smash Bros. Ultimate"
+		"ssbult" : "Super Smash Bros. Ultimate",
+		"roa": "Rivals of Aether",
 	};
 	var input = $('<select />').attr("class", "game-select");
 	for(var key in gamesList){

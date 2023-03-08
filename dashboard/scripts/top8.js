@@ -1,4 +1,4 @@
-import {ssb64, ssbm, ssbult} from './costumes.js'
+import {ssb64, ssbm, ssbult, roa} from './costumes.js'
 
 var top8Array,
     top8Data,
@@ -217,6 +217,9 @@ function getCostume(character, game, id_tag){
 		case "ssbult":
 			costumelist = ssbult;
 			break;
+		case "roa":
+			costumelist	= roa;
+			break;
 		default:
 			break;
 	}
@@ -263,6 +266,9 @@ function getCharacters(game){
 							"Chrom", "Isabelle", "Inkling", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
 							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "Byleth", "MinMin", "Steve", 
 							"Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
+	
+	var roa = ["Absa", "Clairen", "Elliana", "Etalus", "Forsburn", "Hodan", "Kragg", "Maypul", "Mollo", "Olympia", "Orcane", "Ori", "Pomme", "Ranno", "ShovelKnight",
+				"Sylvanos", "Wrastor", "Zetterburn"]
 	switch(game){
 		// Sort the lists so they look decent in the dropdown.
 		case "ssb64":
@@ -277,6 +283,8 @@ function getCharacters(game){
 			return wiiu.sort();
 		case "ssbult":
 			return ultimate.sort();
+		case "roa":
+			return roa.sort();
 	}
 }
 
