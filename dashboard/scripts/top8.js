@@ -1,4 +1,4 @@
-import {ssb64, ssbm} from './costumes.js'
+import {ssb64, ssbm, ssbult} from './costumes.js'
 
 var top8Array,
     top8Data,
@@ -140,16 +140,18 @@ function loadTop8(refresh=false){
     var init_refresh = refresh;
     top8Data = clone(defaultTop8Array.value);
 	var game = gameSelection.value;
-	top8Data["game"] = game;
     if(top8Array.value != undefined && top8Array.value != ''){
         top8Data = top8Array.value;
 	}
+	top8Data["game"] = game;
 	var current_main = '';
     for (var i=0; i < top8Inputs.length-1; i++){
 		var input;
 		var value = top8Data[top8Inputs[i].id];
 		if(top8Inputs[i].id.includes("tag") || top8Inputs[i].id.includes("tourney")){
-			refresh = init_refresh
+			if(top8Inputs[i].id.includes("tag") || top8Inputs[i].id.includes("tourneyname")){
+				refresh = init_refresh
+			}
 			input = $(`<input title='${top8Inputs[i].placeholder}' class='${top8Inputs[i].id}'></input>`);
 		}
 		else if(top8Inputs[i].id.includes("main") || top8Inputs[i].id.includes("secondary")){
@@ -212,6 +214,9 @@ function getCostume(character, game, id_tag){
 		case "ssbm":
 			costumelist = ssbm;
 			break;
+		case "ssbult":
+			costumelist = ssbult;
+			break;
 		default:
 			break;
 	}
@@ -236,16 +241,16 @@ function getCharacters(game){
 						"MrGameAndWatch", "DrMario", "YoungLink", "Mewtwo", "Roy"]);
 
 	// Remove Dr. Mario, Young Link, Mewtwo, Roy
-	var brawl = melee.slice(0, -4).concat(["DiddyKong", "MetaKnight", "KingDedede", "ToonLink", "ZeroSuitSamus", "Charizard",
+	var brawl = melee.slice(0, -4).concat(["DiddyKong", "MetaKnight", "KingDedede", "ToonLink", "ZeroSuitSamus",
 										"Lucario", "Lucas", "Ike", "Wario", "Pit", "Olimar", "ROB", "Sonic", "Snake",
-										"Wolf", "PokemonTrainer", "Squirtle", "Ivysaur"]);
+										"Wolf", "PokemonTrainer", "Squirtle", "Ivysaur", "Charizard"]);
 
 	var pm = brawl.concat(["Mewtwo", "Roy"]);
 
 	// Remove Snake, Wolf, PT, Squirtle, Ivysaur
-	var wiiu = brawl.slice(0, -5).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "RoyKoopa", "Wendy", "Iggy", "Lemmy", "Morton", "Ludwig", "Larry", "Greninja",
-										"Lucina", "CorrinFemale", "CorrinMale", "RobinFemale", "RobinMale", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
-										"WiiFitMale", "WiiFitFemale", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
+	var wiiu = brawl.slice(0, -6).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "Greninja",
+										"Lucina", "Corrin", "Robin", "Palutena", "DarkPit", "Villager",
+										"WiiFit", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
 
 	wiiu = wiiu.filter(function (item) {
 		// Can't remove IC's easily with slicing
@@ -253,11 +258,11 @@ function getCharacters(game){
 	});
 
 	// Remove "Mii", instead use brawler/gunner/swordfighter
-	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale", "Squirtle",
-							"Ivysaur", "Daisy", "PiranhaPlant", "KingK.Rool", "Pichu", "Ridley", "DarkSamus", "Incineroar",
-							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
-							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "BylethMale", "BylethFemale", "MinMin", "Steve", 
-							"Alex", "Zombie", "Enderman", "Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
+	var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "YoungLink", "Snake", "Wolf", "PokemonTrainer",
+							"Daisy", "PiranhaPlant", "KingK.Rool", "Pichu", "Ridley", "DarkSamus", "Incineroar",
+							"Chrom", "Isabelle", "Inkling", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
+							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "Byleth", "MinMin", "Steve", 
+							"Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
 	switch(game){
 		// Sort the lists so they look decent in the dropdown.
 		case "ssb64":
