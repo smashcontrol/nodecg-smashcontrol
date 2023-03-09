@@ -16,7 +16,7 @@
   "dependencies": {
     "clone": "^2.1.1",
     "minimist": "^1.2.8",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "keywords": [
     "",
