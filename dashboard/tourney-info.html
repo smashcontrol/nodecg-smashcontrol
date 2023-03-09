@@ -7,12 +7,27 @@
 	<script src="scripts/tourney-info.js" ></script>
 	<link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-theme/jquery-ui.css"/>
 	<link rel="stylesheet" href="css/tourney-info.css"/>
-
 </head>
+<style>
+	.tourney-name{
+		margin-bottom: 25px;
+	}
+	.events{
+		margin-bottom: 10px;
+	}
+	.disconnect{
+		margin-top: 25px;
+	}
+</style>
 <body>
 	<div class="tourney-info">
-		<div class="tourney-name"></div><br><br>
-		Tournament Events:<br><br><div class="event-list"></div>
+		<div class="tourney-name"></div>
+		<span class="events"></span><div class="event-list"></div>
+		<div class="disconnect">
+			
+			<button class="ui-button" onclick="disconnect()">Disconnect Tournament</button>
+		</div>
 	</div>
+	
 </body>
 </html>

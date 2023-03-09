@@ -78,7 +78,11 @@ async function tourneyImport(url){
 
 async function loadStreamQueue(){
 	var queue = [];
-	var streamQueue = await getStreamQueue(tourneyRepl.value.slug.split('/')[1]);
+	try{
+		var streamQueue = await getStreamQueue(tourneyRepl.value.slug.split('/')[1]);
+	} catch {
+		return queue;
+	}
 	for(var i in streamQueue){
 		var stream = streamQueue[i];
 		for(var j in stream.sets){

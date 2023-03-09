@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="../bower_components/jquery/dist/jquery.js"></script>	
+        <script src="../node_modules/clone/clone.js"></script>
+        <script type="module" src="scripts/top8.js" ></script>
+        <script type="module" src="scripts/costumes.js" ></script>
+        <link rel="stylesheet" href="../bower_components/jquery-ui/themes/dark-theme/jquery-ui.css"/>
+        <style>
+            .grid-container{
+                display:grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                row-gap: 50px;
+            }
+            .buttons{
+                display: flex;
+                width:100%;
+                height:50px;
+                justify-content: center;
+                align-items: center;
+                padding-top: 50px;
+            }
+            .buttons > button{
+                width: 150px;
+                height: 50px;
+            }
+            select{
+                width: 50%;
+            }
+            input{
+                width: 75%;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="grid-container">
+			<div class="place_1"></div>
+			<div class="place_2"></div>
+			<div class="place_3"></div>
+			<div class="place_4"></div>
+			<div class="place_5a"></div>
+			<div class="place_5b"></div>
+			<div class="place_7a"></div>
+			<div class="place_7b"></div>
+            <div class="tournament"></div>
+		</div>
+        <div class="buttons">
+            <button class="ui-button save">Save Info</button>
+            <button class="ui-button refresh">Refresh</button>
+        </div>
+        
+    </body>
+</html>

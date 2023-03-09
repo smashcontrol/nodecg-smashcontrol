@@ -5,12 +5,21 @@
 		<script src="../node_modules/clone/clone.js"></script>
 		<script src="scripts/setInfoDialog.js" ></script>
 		<style>
+			.grid-container{
+                display:grid;
+                grid-template-columns: 1fr 1fr;
+                row-gap: 50px;
+            }
 			#playerDataInputs > input {
 				width: 100%;
 			}
 		</style>
 	</head>
 	<body>
-		<br><br><span id="playerDataInputs"></span>
+		<div class="grid-container">
+			<div class="player1"></div>
+			<div class="player2"></div>
+			<div class="others"></div>
+		</div>
 	</body>
 </html>

@@ -8,19 +8,19 @@ var playerDataArray,
 
 
 var playerDataInputs = [
-	{id: 'player1tag', placeholder: 'Player 1 Tag'},
-	{id: 'player1pronouns', placeholder: 'Player 1 Pronouns'},
-	{id: 'player1port', placeholder: 'Player 1 Port'},
-	{id: 'player2tag', placeholder: 'Player 2 Tag'},
-	{id: 'player2pronouns', placeholder: 'Player 2 Pronouns'},
-	{id: 'player2port', placeholder: 'Player 2 Port'},
-	{id: 'bracketlocation', placeholder: 'Bracket Location'},
-	{id: 'player1character', placeholder: 'Player 1 Character'},
-	{id: 'player2character', placeholder: 'Player 2 Character'},
-	{id: 'commentator1', placeholder: 'Commentator 1'},
-	{id: 'commentator1pronouns', placeholder: 'Commentator 1 Pronouns'},
-	{id: 'commentator2', placeholder: 'Commentator 2'},
-	{id: 'commentator2pronouns', placeholder: 'Commentator 2 Pronouns'},
+	{id: 'player1tag', placeholder: 'Player 1 Tag', grid: '.player1'},
+	{id: 'player1pronouns', placeholder: 'Player 1 Pronouns', grid: '.player1'},
+	{id: 'player1character', placeholder: 'Player 1 Character', grid: '.player1'},
+	{id: 'player1port', placeholder: 'Player 1 Port', grid: '.player1'},
+	{id: 'player2tag', placeholder: 'Player 2 Tag', grid: '.player2'},
+	{id: 'player2pronouns', placeholder: 'Player 2 Pronouns', grid: '.player2'},
+	{id: 'player2character', placeholder: 'Player 2 Character', grid: '.player2'},
+	{id: 'player2port', placeholder: 'Player 2 Port', grid: '.player2'},
+	{id: 'bracketlocation', placeholder: 'Bracket Location', grid: '.others'},
+	{id: 'commentator1', placeholder: 'Commentator 1', grid: '.others'},
+	{id: 'commentator1pronouns', placeholder: 'Commentator 1 Pronouns', grid: '.others'},
+	{id: 'commentator2', placeholder: 'Commentator 2', grid: '.others'},
+	{id: 'commentator2pronouns', placeholder: 'Commentator 2 Pronouns', grid: '.others'},
 	{id: 'game', placeholder: 'game'},
 ];
 
@@ -48,14 +48,17 @@ $(() => {
 	gameSelection = nodecg.Replicant('gameSelection');
 	player1Character = nodecg.Replicant('player1Character');
 	player2Character = nodecg.Replicant('player2Character');
-	playerDataInputsContainer = $('#playerDataInputs');
 
 	document.addEventListener('dialog-confirmed', () => {
 		saveInfo();
-		playerDataInputsContainer.empty();
+		$('.player1').empty();
+		$('.player2').empty();
+		$('.others').empty();
 	});
 	document.addEventListener('dialog-dismissed', () => {
-		playerDataInputsContainer.empty();
+		$('.player1').empty();
+		$('.player2').empty();
+		$('.others').empty();
 	});
 
 });
@@ -83,7 +86,7 @@ function loadInfo(){
 			case "commentator2":
 			case "commentator2pronouns":
 				// These fields just need a text input box.
-				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}' placeholder='${playerDataInputs[i].placeholder}'></input>`);
+				var input = $(`<input title='${playerDataInputs[i].placeholder}' class='${playerDataInputs[i].id}''></input>`);
 				break;
 
 			case "player1character":
@@ -102,9 +105,9 @@ function loadInfo(){
 
 		}
 		input.val(value);
-		playerDataInputsContainer.append(playerDataInputs[i].placeholder + ":<br>");
-		playerDataInputsContainer.append(input);
-		playerDataInputsContainer.append("<br><br>");
+		$(`${playerDataInputs[i].grid}`).append(playerDataInputs[i].placeholder + ":<br>");
+		$(`${playerDataInputs[i].grid}`).append(input);
+		$(`${playerDataInputs[i].grid}`).append("<br>");
 	}
 }
 
@@ -144,7 +147,7 @@ function getCharacters(game){
 					"[REMIX] Dr. Mario", "[REMIX] Sheik", "[REMIX] Young Link", "[REMIX] Ganondorf", "[REMIX] Dark Samus", "[REMIX] King Dedede", "[REMIX] Falco",
 					"[REMIX] Wolf", "[REMIX] Mewtwo", "[REMIX] Lucas", "[REMIX] Marth", "[REMIX] Wario", "[REMIX] Sonic", "[REMIX] Conker", "[REMIX] Marina"];
 
-	var melee = smash64.concat(["Peach", "Bowser", "Marth", "Zelda", "Sheik", "Ganondorf", "Falco", "IceClimbers",
+	var melee = smash64.slice(0, 11).concat(["Peach", "Bowser", "Marth", "Zelda", "Sheik", "Ganondorf", "Falco", "IceClimbers",
 						"MrGameAndWatch", "DrMario", "YoungLink", "Mewtwo", "Roy"]);
 
 	// Remove Dr. Mario, Young Link, Mewtwo, Roy
