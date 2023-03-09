@@ -841,7 +841,7 @@ export let ssbult = {
         "Red",
         "Yellow"
     ],
-    "WiiFitTrainer": [
+    "WiiFit": [
         "Default",
         "Default Male",
         "Female Green",

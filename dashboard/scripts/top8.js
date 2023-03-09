@@ -24,7 +24,7 @@ var top8Inputs = [
     {id: '4tag', placeholder: '4th Place Tag', grid: '.place_4'},
 	{id: '4main', placeholder: '4th Place Main', grid: '.place_4'},
 	{id: '4costume', placeholder: 'Costume', grid: '.place_4'},
-	{id: '4asecondary', placeholder: '4th Place Secondary', grid: '.place_4'},
+	{id: '4secondary', placeholder: '4th Place Secondary', grid: '.place_4'},
 
     {id: '5atag', placeholder: '5th Place Tag', grid: '.place_5a'},
 	{id: '5amain', placeholder: '5th Place Main', grid: '.place_5a'},
@@ -133,6 +133,7 @@ function saveInfo(){
 			allData[top8Inputs[i].id] = input;
 		}
 	}
+	console.log(allData);
 	top8Array.value = allData;
 }
 
@@ -176,7 +177,7 @@ function loadTop8(refresh=false){
 
 function constructCharacterDropdown(game, id_tag, main){
 	// Generate HTML for a dropdown of characters to put in the dialog box.
-	var characters =  getCharacters(game);
+	var characters =  getCharacters(game, main);
 	var index;
 	if (main){
 		index = $('<select />').attr("class", id_tag);
@@ -234,7 +235,7 @@ function getCostume(character, game, id_tag){
 	return selector;
 };
 
-function getCharacters(game){
+function getCharacters(game, main){
 	// Return a list of all of the character's names per game. Slices are to take out the cut characters.
 	var smash64 = ["", "Mario", "Luigi", "Yoshi", "Pikachu", "Fox", "Samus", "Falcon", "Jigglypuff", "Ness", "Kirby", "Link", "DonkeyKong", "[REMIX] Bowser",
 					"[REMIX] Dr. Mario", "[REMIX] Sheik", "[REMIX] Young Link", "[REMIX] Ganondorf", "[REMIX] Dark Samus", "[REMIX] King Dedede", "[REMIX] Falco",
@@ -254,7 +255,11 @@ function getCharacters(game){
 	var wiiu = brawl.slice(0, -6).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "Greninja",
 										"Lucina", "Corrin", "Robin", "Palutena", "DarkPit", "Villager",
 										"WiiFit", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
-
+	if(!main){
+		var wiiu = brawl.slice(0, -6).concat(["DrMario", "Mewtwo", "Roy", "Rosalina", "BowserJr", "Greninja",
+										"Lucina", "CorrinMale", "CorrinFemale", "RobinMale", "RobinFemale", "Palutena", "DarkPit", "VillagerMale", "VillagerFemale",
+										"WiiFitMale", "WiiFitFemale", "LittleMac", "DuckHunt", "Shulk", "MegaMan", "PacMan", "Ryu", "Cloud", "Bayonetta", "Mii"]);
+	}
 	wiiu = wiiu.filter(function (item) {
 		// Can't remove IC's easily with slicing
 		return item !== "IceClimbers";
@@ -266,7 +271,13 @@ function getCharacters(game){
 							"Chrom", "Isabelle", "Inkling", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
 							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "Byleth", "MinMin", "Steve", 
 							"Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
-	
+	if(!main){
+		var ultimate = wiiu.slice(0, -1).concat(["IceClimbers", "YoungLink", "Snake", "Wolf", "PokemonTrainerMale", "PokemonTrainerFemale",
+							"Daisy", "PiranhaPlant", "KingK.Rool", "Pichu", "Ridley", "DarkSamus", "Incineroar",
+							"Chrom", "Isabelle", "InklingMale", "InklingFemale", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
+							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "BylethMale", "BylethFemale", "MinMin", "Steve", 
+							"Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
+	}
 	var roa = ["Absa", "Clairen", "Elliana", "Etalus", "Forsburn", "Hodan", "Kragg", "Maypul", "Mollo", "Olympia", "Orcane", "Ori", "Pomme", "Ranno", "ShovelKnight",
 				"Sylvanos", "Wrastor", "Zetterburn"]
 	switch(game){
