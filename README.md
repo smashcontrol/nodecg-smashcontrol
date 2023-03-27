@@ -1,4 +1,4 @@
-nodecg-smashcontrol v0.9.2
+nodecg-smashcontrol v0.9.4
 ----
 
 *This is a bundle for [NodeCG](http://nodecg.com/). It is required for use of this application.*
@@ -12,8 +12,7 @@ This bundle does *not* come with any graphics, but a simple example of its usage
 
 ## Installation
 
-To get started with SmashControl, you must have [Node.js](https://nodejs.org/) and [git](https://git-scm.com/) installed,
-then look through the [NodeCG Documentation](http://nodecg.com/) to install that.
+To get started with SmashControl, you must have [Node.js](https://nodejs.org/) and [git](https://git-scm.com/) installed.
 
 After these are installed, run the following in the directory in which you want to install the program:
 ```
@@ -33,6 +32,7 @@ Future features include:
 
 #### Used By
 [RIT Smash Club](https://twitter.com/RITSmashClub)
+[Neutral Tilt](https://www.youtube.com/@Pokehero)
 
 #### Credits
 This program is currently being written by [swc19](https://github.com/swc19) and is inspired by both [Scoreboard Assistant](https://obsproject.com/forum/resources/scoreboard-assistant.112/) and [nodecg-speedcontrol](https://github.com/speedcontrol/nodecg-speedcontrol).    
