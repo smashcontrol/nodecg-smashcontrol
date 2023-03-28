@@ -1,6 +1,7 @@
-var fetch = require('node-fetch');
+if(process.version[2] >= 8){
+    var fetch = require('node-fetch');
+}
 const startgg = require('./startgg-helpers.js');
-
 var nodecg = require('./nodecg-api-context').get();
 var apiRepl = nodecg.Replicant("API-KEY");
 var tourneyRepl = nodecg.Replicant("currentTournament");

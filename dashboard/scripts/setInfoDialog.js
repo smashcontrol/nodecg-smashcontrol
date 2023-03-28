@@ -173,6 +173,10 @@ function getCharacters(game){
 							"Chrom", "Isabelle", "InklingBoy", "InklingGirl", "Ken", "Simon", "Richter", "Joker", "MiiGunner",
 							"MiiSwordfighter", "MiiBrawler", "Banjo&Kazooie", "Hero", "Terry", "BylethMale", "BylethFemale", "MinMin", "Steve", 
 							"Alex", "Zombie", "Enderman", "Sephiroth", "PyraMythra", "Kazuya", "Sora"]);
+	
+	var roa = ["Absa", "Clairen", "Elliana", "Etalus", "Forsburn", "Hodan", "Kragg", "Maypul", "Mollo", "Olympia", "Orcane", "Ori", "Pomme", "Ranno", "ShovelKnight",
+					"Sylvanos", "Wrastor", "Zetterburn"]						
+	
 	switch(game){
 		// Sort the lists so they look decent in the dropdown.
 		case "ssb64":
@@ -187,6 +191,8 @@ function getCharacters(game){
 			return wiiu.sort();
 		case "ssbult":
 			return ultimate.sort();
+		case "roa":
+			return roa.sort();
 	}
 }
 

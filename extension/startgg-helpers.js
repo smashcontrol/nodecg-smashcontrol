@@ -1,4 +1,6 @@
-var fetch = require('node-fetch');
+if(process.version[2] >= 8){
+    var fetch = require('node-fetch');
+}
 var nodecg = require('./nodecg-api-context').get();
 var apiRepl = nodecg.Replicant("API-KEY");
 
@@ -6,6 +8,7 @@ module.exports = {
     getTourneySlugFromURL: (url) => {
         // Extract something like "ceo-2016" from https://smash.gg/tournament/ceo-2016/
         // This is over-engineered but it /should/ be foolproof
+        console.log(process.version[2]);
         if(!url.includes("http")){
             //ex: smash.gg/tournament/ceo-2016
             slugIndex = 2;
