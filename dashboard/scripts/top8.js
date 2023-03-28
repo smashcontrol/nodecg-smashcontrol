@@ -104,7 +104,7 @@ $(() => {
 		"tourneydate": '',
 		"tourneyentrants": '',
 		"tourneylocation": '',
-		"game": ssb64,
+		"game": 'ssb64',
     };
     gameSelection = nodecg.Replicant('gameSelection');
     NodeCG.waitForReplicants(defaultTop8Array, gameSelection).then(() => {
@@ -140,7 +140,12 @@ function saveInfo(){
 function loadTop8(refresh=false){
     var init_refresh = refresh;
     top8Data = clone(defaultTop8Array.value);
-	var game = gameSelection.value;
+	try{
+		var game = gameSelection.value;
+	} catch {
+		var game = 'ssb64';
+	}
+	
     if(top8Array.value != undefined && top8Array.value != ''){
         top8Data = top8Array.value;
 	}
